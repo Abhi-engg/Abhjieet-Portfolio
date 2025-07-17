@@ -14,7 +14,7 @@ const Navigation = () => {
     { name: "Home", href: "#home" },
     { name: "About", href: "#about" },
     { name: "Projects", href: "#projects" },
-    { name: "Blog", href: "#blog" },
+    // { name: "Blog", href: "#blog" },
     { name: "Contact", href: "#contact" },
   ];
 
@@ -89,11 +89,21 @@ const Navigation = () => {
           {/* Logo */}
           <div className="flex-shrink-0">
             <a
-              href="#home"
-              className="text-2xl font-bold text-zinc-900 dark:text-zinc-100"
-            >
-              AC
-            </a>
+  href="#home"
+  className="group relative inline-flex items-center justify-center h-10 w-10 rounded-xl bg-white/10 dark:bg-white/5 ring-1 ring-gray-400/50 dark:ring-white/10 shadow-md transition-all duration-300 hover:scale-110 hover:rotate-12 overflow-hidden"
+>
+  {/* Subtle Glow on Hover */}
+  <span className="absolute inset-0 bg-gradient-to-br from-white/20 via-silver/30 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 blur-sm rounded-xl" />
+
+  {/* Text */}
+  <span className="relative z-10 text-gray-900 dark:text-white font-bold tracking-wide group-hover:text-white transition duration-300">
+    AY.
+  </span>
+
+  {/* Border Glow on Hover */}
+  <span className="absolute inset-0 rounded-xl border border-transparent group-hover:border-white/50 transition-all duration-300" />
+</a>
+
           </div>
 
           {/* Desktop Navigation */}
