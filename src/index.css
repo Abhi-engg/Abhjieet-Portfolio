@@ -1,0 +1,140 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Modern Portfolio Design System */
+
+@layer base {
+  :root {
+    /* Base colors */
+    --background: 0 0% 98%;
+    --foreground: 240 10% 15%;
+
+    /* Card system */
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 15%;
+
+    /* Popover system */
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 15%;
+
+    /* Primary brand colors */
+    --primary: 240 10% 15%;
+    --primary-foreground: 0 0% 98%;
+
+    /* Secondary colors */
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+
+    /* Muted colors */
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+
+    /* Accent colors */
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+
+    /* Destructive colors */
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    /* Border and input */
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 10% 15%;
+
+    /* Portfolio specific colors */
+    --hero-gradient-start: 240 100% 97%;
+    --hero-gradient-end: 260 100% 98%;
+    --tech-badge: 240 4.8% 95.9%;
+    --tech-badge-foreground: 240 5.9% 10%;
+    --skill-progress: 142 76% 36%;
+    --project-card: 0 0% 100%;
+    --project-card-hover: 240 4.8% 95.9%;
+
+    /* Radius */
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    /* Base colors */
+    --background: 240 10% 4%;
+    --foreground: 0 0% 98%;
+
+    /* Card system */
+    --card: 240 10% 8%;
+    --card-foreground: 0 0% 98%;
+
+    /* Popover system */
+    --popover: 240 10% 8%;
+    --popover-foreground: 0 0% 98%;
+
+    /* Primary brand colors */
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 10% 4%;
+
+    /* Secondary colors */
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+
+    /* Muted colors */
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+
+    /* Accent colors */
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+
+    /* Destructive colors */
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    /* Border and input */
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+
+    /* Portfolio specific dark colors */
+    --hero-gradient-start: 240 10% 6%;
+    --hero-gradient-end: 260 10% 8%;
+    --tech-badge: 240 3.7% 15.9%;
+    --tech-badge-foreground: 0 0% 98%;
+    --skill-progress: 142 76% 36%;
+    --project-card: 240 10% 8%;
+    --project-card-hover: 240 3.7% 15.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
