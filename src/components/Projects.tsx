@@ -36,9 +36,9 @@ const Projects = () => {
 
   return (
     <section id="projects" className="py-20 bg-muted/30">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-7">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
+          <div className="text-center mb-16 p-6">
             <h2 className="text-4xl font-bold mb-4">Featured Projects</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               Here are some of my recent projects that showcase my skills and passion for creating 

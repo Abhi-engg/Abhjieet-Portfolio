@@ -5,7 +5,8 @@ import Projects from "@/components/Projects";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navigation";
-import Squares from "@/components/ui/Sqaures"; 
+import Squares from "@/components/ui/Sqaures";
+import Resume from "@/components/Resume";
 
 const Index = () => {
   return (
@@ -21,15 +22,25 @@ const Index = () => {
 
       {/* ✅ Main Content */}
       <Navbar />
-      <main>
-        <section id="home">
-          <Hero />
-        </section>
-        <About />
-        <Projects />
-        {/* <Blog /> */}
-        <Contact />
-      </main>
+        <main>
+          <section id="home">
+            <Hero />
+          </section>
+          <section id="about">
+            <About />
+          </section>
+          <section id="projects">
+            <Projects />
+          </section>
+          <section id="resume">
+            {" "}
+            {/* ✅ FIX */}
+            <Resume />
+          </section>
+          <section id="contact">
+            <Contact />
+          </section>
+        </main>
       <Footer />
     </div>
   );

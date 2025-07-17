@@ -5,13 +5,13 @@ const About = () => {
   const skills = [
     { name: "Frontend Development (React / Vue / Next.js)", level: 90 },
     { name: "Backend Development (Node.js / Python / Java)", level: 85 },
-    { name: "Database Design & Management", level: 80 },
-    { name: "DevOps & Cloud Infrastructure", level: 75 },
-    { name: "UI/UX Design & Product Strategy", level: 70 },
+    // { name: "Database Design & Management", level: 80 },
+    // { name: "DevOps & Cloud Infrastructure", level: 75 },
+    // { name: "UI/UX Design & Product Strategy", level: 70 },
   ];
 
   return (
-    <section id="about" className="py-20 bg-background">
+    <section id="about" className="py-20 ">
       <div className="container mx-auto px-6">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
@@ -38,15 +38,6 @@ const About = () => {
                   user interfaces with React and Vue.js to building robust backend systems with 
                   Node.js and Python. I'm passionate about clean code, performance optimization, 
                   and creating seamless user experiences.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="text-xl font-semibold mb-4">Beyond Code</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  When I'm not coding, you'll find me exploring new technologies, contributing to 
-                  open source projects, or sharing knowledge through technical writing and mentoring. 
-                  I believe in continuous learning and staying ahead of industry trends.
                 </p>
               </div>
             </div>

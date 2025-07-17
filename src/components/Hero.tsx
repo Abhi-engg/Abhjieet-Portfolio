@@ -2,17 +2,16 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
 import heroAvatar from "@/assets/hero-avatar.jpg";
-import { motion } from "framer-motion";
 
 const Hero = () => {
   const techStack = ["React", "TypeScript", "Vite", "Tailwind CSS"];
 
   return (
-    <section className="min-h-screen flex items-center justify-center ">
-      <div className="container mx-auto px-10">
+    <section className="min-h-screen flex items-center justify-center from-hero-gradient-start to-hero-gradient-end py-20">
+      <div className="container mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
-          <div className="space-y-5">
+          <div className="space-y-8">
             <div className="space-y-4">
               <p className="text-muted-foreground">Hello, I'm</p>
               <h1 className="text-6xl lg:text-7xl font-bold tracking-tight">
@@ -70,34 +69,19 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Right Image with Animation */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            whileHover={{ scale: 1.02 }}
-            className="relative"
-          >
-            <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-primary/10 to-accent/10 p-8 shadow-xl transition-all duration-300">
-              <motion.img
+          {/* Right Image */}
+          <div className="relative">
+            <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-primary/10 to-accent/10 p-8">
+              <img
                 src={heroAvatar}
-                alt="Abhijeet Yadav"
+                alt="Alex Chen"
                 className="w-full h-auto rounded-2xl shadow-2xl"
-                initial={{ scale: 0.95, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ duration: 0.6 }}
-                whileHover={{ scale: 1.03 }}
               />
-              <motion.div
-                className="absolute top-4 right-4 bg-card/80 backdrop-blur-sm rounded-full p-2"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.6, duration: 0.4 }}
-              >
-                <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
-              </motion.div>
+              <div className="absolute top-4 right-4 bg-card/80 backdrop-blur-sm rounded-full p-2">
+                <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+              </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
