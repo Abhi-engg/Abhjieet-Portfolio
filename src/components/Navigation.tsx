@@ -5,9 +5,10 @@ import { cn } from "@/lib/utils";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const [isScrolling, setIsScrolling] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   const navItems = [
     { name: "Home", href: "#home" },
@@ -18,24 +19,35 @@ const Navigation = () => {
   ];
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+    let ticking = false;
 
-      // Track active section
-      let current = "";
-      navItems.forEach(({ href }) => {
-        const section = document.querySelector(href);
-        if (
-          section &&
-          window.scrollY >= section.offsetTop - 100
-        ) {
-          current = href;
-        }
-      });
-      setActiveSection(current);
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrollTop = window.scrollY;
+          const docHeight = document.body.scrollHeight - window.innerHeight;
+          const progress = docHeight > 0 ? scrollTop / docHeight : 0;
+
+          setIsScrolling(scrollTop > 0);
+          setScrollProgress(progress);
+
+          // Active section tracking
+          let current = "";
+          navItems.forEach(({ href }) => {
+            const section = document.querySelector(href);
+            if (section && scrollTop >= section.offsetTop - 100) {
+              current = href;
+            }
+          });
+          setActiveSection(current);
+
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -43,6 +55,8 @@ const Navigation = () => {
     setDarkMode(!darkMode);
     document.documentElement.classList.toggle("dark");
   };
+
+  const navWidth = 80 - scrollProgress * 30;
 
   const handleLinkClick = (href: string) => {
     const section = document.querySelector(href);
@@ -53,11 +67,22 @@ const Navigation = () => {
   return (
     <nav
       className={cn(
-        "fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ease-in-out rounded-full w-[85%]",
-        scrolled
-          ? "bg-white/80 dark:bg-zinc-900/40 backdrop-blur-xl border border-zinc-200/50 dark:border-zinc-800/30 shadow-md"
+        "fixed top-4 left-1/2 -translate-x-1/2 z-50 rounded-full w-full max-w-7xl hidden md:block",
+        "transition-[width] duration-300 ease-out", // Smooth width transition
+        isScrolling
+          ? darkMode
+            ? "bg-zinc-900/40 border border-zinc-800/30 backdrop-blur-xl shadow-md"
+            : "bg-white/80 border border-zinc-200/50 backdrop-blur-xl shadow-md"
           : "bg-transparent"
       )}
+      style={{
+        width: `${80 - scrollProgress * 30}%`,
+        boxShadow: isScrolling
+          ? darkMode
+            ? "0 4px 30px rgba(0, 0, 0, 0.15)"
+            : "0 4px 30px rgba(0, 0, 0, 0.08)"
+          : "none",
+      }}
     >
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-16">
@@ -105,7 +130,6 @@ const Navigation = () => {
 
           {/* Right Side */}
           <div className="flex items-center gap-4">
-            {/* Dark Mode Toggle */}
             <Button
               variant="ghost"
               size="icon"
@@ -120,7 +144,6 @@ const Navigation = () => {
               <span className="sr-only">Toggle theme</span>
             </Button>
 
-            {/* Mobile Menu Button */}
             <Button
               variant="ghost"
               size="icon"
