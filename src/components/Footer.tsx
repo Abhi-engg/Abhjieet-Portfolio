@@ -69,17 +69,6 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-
-          {/* Services */}
-          <div>
-            <h4 className="font-semibold mb-4 text-foreground">Services</h4>
-            <ul className="space-y-2">
-              <li><span className="text-muted-foreground">Web Development</span></li>
-              <li><span className="text-muted-foreground">Frontend Engineering</span></li>
-              <li><span className="text-muted-foreground">UI/UX Design</span></li>
-              <li><span className="text-muted-foreground">Hackathon Projects</span></li>
-            </ul>
-          </div>
         </div>
 
         <div className="border-t mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">

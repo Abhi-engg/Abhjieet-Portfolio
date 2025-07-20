@@ -13,14 +13,14 @@ const Index = () => {
     <div className="relative min-h-screen overflow-hidden">
       {/* Background Animation */}
       <Squares
-        speed={0.4}
+        speed={0.5}
         squareSize={50}
         direction="diagonal"
         borderColor="#777"
         hoverFillColor="#333"
       />
 
-      {/* ✅ Main Content */}
+      {/* Main Content */}
       <Navbar />
         <main>
           <section id="home">
@@ -34,7 +34,6 @@ const Index = () => {
           </section>
           <section id="resume">
             {" "}
-            {/* ✅ FIX */}
             <Resume />
           </section>
           <section id="contact">

@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
-import heroAvatar from "@/assets/hero-avatar.jpg";
+import lifeCode from "@/assets/lifeCode.gif";
+import Abhimine from "@/assets/Abhimine.png";
+ 
 
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -22,15 +24,15 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="min-h-screen flex items-center justify-center from-hero-gradient-start to-hero-gradient-end py-20">
-      <div className="container mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+    <section className="min-h-screen flex items-center justify-center from-hero-gradient-start to-hero-gradient-end py-12 sm:py-16 md:py-20">
+      <div className="container mx-auto px-4 sm:px-6">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left Content */}
-          <div className="space-y-8">
-            <div className="space-y-4">
-              {/* Animated greeting */}
+          <div className="space-y-6 sm:space-y-8 text-center lg:text-left">
+            <div className="space-y-3 sm:space-y-4">
+              {/* Adjust greeting text size */}
               <p 
-                className={`text-muted-foreground transition-all duration-700 ease-out ${
+                className={`text-sm sm:text-base text-muted-foreground transition-all duration-700 ease-out ${
                   isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
                 }`}
               >
@@ -38,7 +40,7 @@ const Hero = () => {
               </p>
               
               {/* Name with letter-by-letter animation */}
-              <h1 className="text-6xl lg:text-7xl font-bold tracking-tight">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight">
                 {"Abhijeet Yadav".split("").map((letter, index) => (
                   <span
                     key={index}
@@ -57,9 +59,9 @@ const Hero = () => {
               </h1>
 
               {/* Animated role with typewriter effect */}
-              <div className="h-12 overflow-hidden">
+              <div className="h-8 sm:h-12 overflow-hidden">
                 <h2 
-                  className={`text-2xl lg:text-3xl text-muted-foreground font-medium transition-all duration-700 ease-in-out ${
+                  className={`text-xl sm:text-2xl lg:text-3xl text-muted-foreground font-medium transition-all duration-700 ease-in-out ${
                     isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
                   }`}
                   key={currentRole}
@@ -70,9 +72,9 @@ const Hero = () => {
               </div>
             </div>
 
-            {/* Animated description */}
+            {/* Adjust description text size */}
             <p 
-              className={`text-lg text-muted-foreground max-w-lg leading-relaxed transition-all duration-1000 ease-out delay-300 ${
+              className={`text-base sm:text-lg text-muted-foreground max-w-lg mx-auto lg:mx-0 leading-relaxed transition-all duration-1000 ease-out delay-300 ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               }`}
             >
@@ -80,9 +82,9 @@ const Hero = () => {
               I build scalable, user-friendly applications with a focus on performance and design.
             </p>
 
-            {/* Tech Stack with staggered hover effects */}
+            {/* Adjust tech stack layout */}
             <div 
-              className={`flex flex-wrap gap-2 transition-all duration-1000 ease-out delay-500 ${
+              className={`flex flex-wrap justify-center lg:justify-start gap-2 transition-all duration-1000 ease-out delay-500 ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               }`}
             >
@@ -90,7 +92,7 @@ const Hero = () => {
                 <Badge
                   key={tech}
                   variant="secondary"
-                  className={`px-3 py-1 bg-tech-badge text-tech-badge-foreground transition-all duration-300 ease-out hover:scale-110 hover:shadow-lg hover:-translate-y-1 cursor-pointer ${
+                  className={`text-xs sm:text-sm px-2 sm:px-3 py-1 bg-tech-badge text-tech-badge-foreground transition-all duration-300 ease-out hover:scale-110 hover:shadow-lg hover:-translate-y-1 cursor-pointer ${
                     isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
                   }`}
                   style={{ transitionDelay: `${600 + index * 100}ms` }}
@@ -100,15 +102,15 @@ const Hero = () => {
               ))}
             </div>
 
-            {/* CTA Buttons with enhanced hover effects */}
+            {/* Adjust CTA buttons */}
             <div 
-              className={`flex flex-col sm:flex-row gap-4 transition-all duration-1000 ease-out delay-700 ${
+              className={`flex flex-col sm:flex-row justify-center lg:justify-start gap-3 sm:gap-4 transition-all duration-1000 ease-out delay-700 ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               }`}
             >
               <Button 
                 size="lg" 
-                className="group relative overflow-hidden transition-all duration-300 ease-out hover:scale-105 bg-gradient-to-r from-blue-600 border-slate-200 dark:border-slate-700 text-white  rounded-lg  disabled:opacity-70 disabled:cursor-not-allowed hover:shadow-xl ">
+                className="w-full sm:w-auto text-sm sm:text-base group relative overflow-hidden transition-all duration-300 ease-out hover:scale-105 bg-gradient-to-r from-blue-600 border-slate-200 dark:border-slate-700 text-white  rounded-lg  disabled:opacity-70 disabled:cursor-not-allowed hover:shadow-xl ">
               
                 <span className="relative z-10 flex items-center">
                   Contact Me
@@ -117,9 +119,8 @@ const Hero = () => {
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
               </Button>
               <Button 
-      
                 size="lg" 
-                className="group relative overflow-hidden transition-all duration-300 ease-out hover:scale-105 bg-gradient-to-r from-blue-600 border-slate-200 dark:border-slate-700 text-white  rounded-lg  disabled:opacity-70 disabled:cursor-not-allowed hover:shadow-xl ">
+                className="w-full sm:w-auto text-sm sm:text-base group relative overflow-hidden transition-all duration-300 ease-out hover:scale-105 bg-gradient-to-r from-blue-600 border-slate-200 dark:border-slate-700 text-white  rounded-lg  disabled:opacity-70 disabled:cursor-not-allowed hover:shadow-xl ">
   
                 <span className="relative z-10 flex ">
                   View Projects
@@ -128,9 +129,8 @@ const Hero = () => {
               </Button>
             </div>
 
-            {/* Social Links with ripple effect */}
-            <div 
-              className={`flex gap-4 transition-all duration-1000 ease-out delay-900 ${
+            {/* Adjust social links */}
+            <div className={`flex justify-center lg:justify-start gap-3 sm:gap-4 transition-all duration-1000 ease-out delay-900 ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               }`}
             >
@@ -150,40 +150,43 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Right Image with smooth animations */}
+          {/* Right Animation Container */}
           <div 
-            className={`relative transition-all duration-1200 ease-out delay-200 ${
-              isVisible ? 'opacity-100 translate-x-0 scale-100' : 'opacity-0 translate-x-8 scale-95'
+            className={`relative order-first lg:order-last transition-all duration-1000 ease-out mt-16 sm:mt-20 lg:mt-0 ${
+              isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-95'
             }`}
           >
-            <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-primary/10 to-accent/10 p-8 group hover:shadow-2xl transition-all duration-500 ease-out hover:scale-105">
-              <img
-                src={heroAvatar}
-                alt="Abhijeet Yadav"
-                className="w-full h-auto rounded-2xl shadow-2xl transition-all duration-500 ease-out group-hover:scale-105 group-hover:shadow-3xl"
-              />
-              
-              {/* Enhanced status indicator */}
-              <div className="absolute top-4 right-4 bg-card/80 backdrop-blur-sm rounded-full p-2 transition-all duration-300 hover:scale-110">
-                <div className="relative">
-                  <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                  <div className="absolute inset-0 w-3 h-3 bg-green-500 rounded-full animate-ping opacity-75"></div>
+            <div className="relative mx-auto max-w-[300px] sm:max-w-[360px] lg:max-w-[480px]">
+              {/* GIF Container */}
+              <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden bg-gradient-to-b from-blue-500/10 to-blue-400/5 p-3 sm:p-4 lg:p-6 group hover:shadow-2xl transition-all duration-500 ease-out hover:scale-[1.02]">
+                <div className="aspect-square rounded-xl sm:rounded-2xl shadow-xl transition-all duration-500 ease-out group-hover:scale-[1.03] group-hover:shadow-2xl overflow-hidden">
+                  <img 
+                    src={Abhimine} 
+                    alt="Coding Animation" 
+                    className="w-full h-full object-cover"
+                    draggable="false"
+                  />
                 </div>
+
+                {/* Status Indicator */}
+                <div className="absolute top-5 right-5 bg-background/80 backdrop-blur-sm rounded-full p-2 shadow-lg transition-all duration-300 hover:scale-110">
+                  <div className="relative">
+                    <div className="w-2.5 h-2.5 bg-blue-500 rounded-full animate-pulse"></div>
+                    <div className="absolute inset-0 w-2.5 h-2.5 bg-blue-500 rounded-full animate-ping opacity-75"></div>
+                  </div>
+                </div>
+
+                {/* Decorative Elements */}
+                <div className="absolute -top-3 -left-3 w-4 h-4 bg-blue-500/20 rounded-full animate-float"></div>
+                <div className="absolute -bottom-3 -right-3 w-4 h-4 bg-blue-400/20 rounded-full animate-float" style={{ animationDelay: '1s' }}></div>
+                <div className="absolute top-1/3 -right-4 w-3 h-3 bg-blue-500/30 rounded-full animate-float" style={{ animationDelay: '1.5s' }}></div>
               </div>
 
-              {/* Floating elements with smooth animation */}
-              <div className="absolute -top-2 -left-2 w-4 h-4 bg-primary/30 rounded-full animate-float opacity-60"></div>
-              <div className="absolute -bottom-2 -right-2 w-3 h-3 bg-accent/40 rounded-full animate-float opacity-60" style={{ animationDelay: '1s' }}></div>
-              <div className="absolute top-1/3 -right-3 w-2 h-2 bg-primary/50 rounded-full animate-float opacity-50" style={{ animationDelay: '2s' }}></div>
-              
-              {/* Hover glow effect */}
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            </div>
-
-            {/* Background decoration */}
-            <div className="absolute inset-0 -z-10">
-              <div className="absolute top-8 -left-8 w-16 h-16 bg-primary/10 rounded-full blur-xl animate-pulse"></div>
-              <div className="absolute bottom-8 -right-8 w-20 h-20 bg-accent/10 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+              {/* Background Blur Effects */}
+              <div className="absolute -inset-4 -z-10 opacity-50">
+                <div className="absolute top-1/4 left-0 w-24 h-24 bg-blue-500/20 rounded-full blur-2xl"></div>
+                <div className="absolute bottom-1/4 right-0 w-32 h-32 bg-blue-400/20 rounded-full blur-2xl"></div>
+              </div>
             </div>
           </div>
         </div>

@@ -9,8 +9,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Github } from "lucide-react";
 import listifyImage from "@/assets/listifyImage.png";
-// import fitlifeImage from "@/assets/fitlifeImage.png";
-// import farmerMarketplaceImage from "@/assets/farmerMarketplaceImage.png";
+import fitlifeImage from "@/assets/fitlifeImage.png";
+import farmerMarketplaceImage from "@/assets/farmerMarketplaceImage.png";
 import classTimetableImage from "@/assets/classTimetableImage.png";
 import campusConnectImage from "@/assets/campusConnectImage.png";
 
@@ -26,10 +26,10 @@ const Projects = () => {
       githubUrl: "https://github.com/Abhi-engg/ListiFy-To-do-List-Website",
     },
     {
-      title: "FitLife - Fitness Tracker",
+      title: "FitLife - Fitness Guide",
       description:
         "A fitness companion app for goal tracking, calorie monitoring, and personalized workout plans. Includes interactive forms and health insights.",
-      // image: fitlifeImage,
+      image: fitlifeImage,
       technologies: ["Html", "CSS", "JavaScript"],
       liveUrl: "https://github.com/Abhi-engg/FitLife--A-Fitness-Guide", 
       githubUrl: "https://github.com/Abhi-engg/FitLife--A-Fitness-Guide",
@@ -38,7 +38,7 @@ const Projects = () => {
       title: "Farmer Marketplace",
       description:
         "A sustainable shopping platform that connects local farmers with consumers. Includes location-based discovery, price tracking, and fresh produce listings.",
-      // image: farmerMarketplaceImage,
+      image: farmerMarketplaceImage,
       technologies: ["React", "Tailwind CSS","Django","postgreSQL"],
       liveUrl: "https://github.com/Abhi-engg/Farmer-Marketplace",
       githubUrl: "https://github.com/Abhi-engg/Farmer-Marketplace",
@@ -48,7 +48,7 @@ const Projects = () => {
       description:
         "A responsive app for viewing and managing college schedules, with features like color-coded subjects and user-friendly UI.",
       image: classTimetableImage,
-      technologies: ["React", "Tailwind CSS",""],
+      technologies: ["React", "Tailwind CSS"],
       liveUrl: "https://github.com/Abhi-engg/Class-Time-table",
       githubUrl: "https://github.com/Abhi-engg/Class-Time-table",
     },
