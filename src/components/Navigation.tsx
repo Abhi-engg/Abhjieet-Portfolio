@@ -152,8 +152,109 @@ const Navigation = () => {
       
       <nav
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 w-full transition-all duration-700 ease-out",
-          "mx-auto my-2 max-w-[95%] md:max-w-none rounded-2xl md:rounded-none", // Added rounded corners for mobile
+          "fixed top-4 left-1/2 -translate-x-1/2 w-[95%] z-50 md:hidden", // Mobile-specific positioning
+          "rounded-2xl transition-all duration-300",
+          isScrolling
+            ? darkMode
+              ? "bg-zinc-900/90 border border-zinc-800/60 shadow-lg"
+              : "bg-white/90 border border-zinc-200/70 shadow-lg"
+            : "bg-transparent border-transparent"
+        )}
+        style={{
+          backdropFilter: `blur(12px)`,
+        }}
+      >
+        <div className="px-4 py-3">
+          <div className="flex items-center justify-between">
+            {/* Logo */}
+            <a
+              href="#home"
+              onClick={(e) => {
+                e.preventDefault();
+                handleLinkClick("#home");
+              }}
+              className="relative flex items-center justify-center group transition-all duration-300"
+            >
+              <div 
+                className="relative w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500/10 via-blue-500/5 to-blue-500/10 flex items-center justify-center border border-blue-500/20 shadow-sm hover:shadow-md hover:scale-105 transition-all duration-300"
+              >
+                <span className="text-base font-black bg-gradient-to-br from-blue-600 to-blue-800 bg-clip-text text-transparent group-hover:text-blue-600 transition-all duration-300">
+                  AY.
+                </span>
+              </div>
+            </a>
+
+            {/* Actions */}
+            <div className="flex items-center gap-2">
+              {/* Dark Mode Toggle */}
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={toggleDarkMode}
+                className="rounded-xl hover:bg-zinc-100/80 dark:hover:bg-zinc-800/50"
+              >
+                {darkMode ? (
+                  <Sun className="h-4 w-4" />
+                ) : (
+                  <Moon className="h-4 w-4" />
+                )}
+              </Button>
+
+              {/* Menu Toggle */}
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setIsOpen(!isOpen)}
+                className="rounded-xl"
+              >
+                {isOpen ? (
+                  <X className="h-4 w-4" />
+                ) : (
+                  <Menu className="h-4 w-4" />
+                )}
+              </Button>
+            </div>
+          </div>
+
+          {/* Mobile Menu Dropdown */}
+          {isOpen && (
+            <div className="mt-3 py-2 px-1">
+              <div className="relative overflow-hidden rounded-xl">
+                {navItems.map((item, index) => (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleLinkClick(item.href);
+                    }}
+                    style={{
+                      animationDelay: `${index * 50}ms`,
+                    }}
+                    className={cn(
+                      "block px-4 py-2.5 text-sm font-medium rounded-lg transition-all duration-200",
+                      "animate-in slide-in-from-right-5",
+                      activeSection === item.href
+                        ? "bg-blue-500/10 text-blue-600 dark:text-blue-400 backdrop-blur-md"
+                        : "hover:bg-zinc-100/50 dark:hover:bg-zinc-800/50",
+                      "flex items-center justify-between"
+                    )}
+                  >
+                    {item.name}
+                    {activeSection === item.href && (
+                      <div className="h-1.5 w-1.5 rounded-full bg-blue-500" />
+                    )}
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </nav>
+      
+      <nav
+        className={cn(
+          "fixed left-1/2 z-50 rounded-full transition-all duration-700 ease-out hidden md:block",
           isScrolling
             ? darkMode
               ? "bg-zinc-900/80 border border-zinc-800/60 shadow-2xl"
@@ -161,17 +262,29 @@ const Navigation = () => {
             : "bg-transparent border-transparent"
         )}
         style={{
+          top: `${navTop}rem`,
+          width: `${navWidth}%`,
+          maxWidth: isScrolling ? "650px" : "1000px",
+          transform: `translateX(-50%) scale(${navScale}) translateY(${direction === 'down' ? velocityEffect * 2 : -velocityEffect * 2}px)`,
           backdropFilter: `blur(${dynamicBlur}px)`,
           opacity: dynamicOpacity,
           boxShadow: isScrolling
             ? darkMode
-              ? `0 ${8 + shadowIntensity * 12}px ${40 + shadowIntensity * 20}px rgba(0, 0, 0, ${0.4 + shadowIntensity * 0.2})`
-              : `0 ${8 + shadowIntensity * 12}px ${40 + shadowIntensity * 20}px rgba(0, 0, 0, ${0.15 + shadowIntensity * 0.1})`
+              ? `0 ${8 + shadowIntensity * 12}px ${40 + shadowIntensity * 20}px rgba(0, 0, 0, ${0.4 + shadowIntensity * 0.2}), 0 ${2 + shadowIntensity * 4}px ${10 + shadowIntensity * 10}px rgba(0, 0, 0, ${0.3 + shadowIntensity * 0.2})`
+              : `0 ${8 + shadowIntensity * 12}px ${40 + shadowIntensity * 20}px rgba(0, 0, 0, ${0.15 + shadowIntensity * 0.1}), 0 ${2 + shadowIntensity * 4}px ${10 + shadowIntensity * 10}px rgba(0, 0, 0, ${0.1 + shadowIntensity * 0.1})`
             : "none",
+          borderColor: isScrolling 
+            ? darkMode 
+              ? `rgba(113, 113, 122, ${borderOpacity})`
+              : `rgba(228, 228, 231, ${borderOpacity})`
+            : "transparent"
         }}
       >
         <div 
-          className="container mx-auto transition-all duration-700 ease-out px-4 md:px-6"
+          className="container mx-auto transition-all duration-700 ease-out"
+          style={{ 
+            padding: `0 ${1.5 - scrollProgress * 0.5}rem`
+          }}
         >
           <div 
             className="flex items-center justify-between transition-all duration-700 ease-out"
@@ -181,34 +294,22 @@ const Navigation = () => {
             <div className="flex-shrink-0">
               <a
                 href="#home"
-                className="group relative inline-flex items-center justify-center rounded-xl overflow-hidden transition-all duration-500 hover:scale-125 hover:rotate-12"
-                style={{
-                  height: `${logoSize * 0.25}rem`,
-                  width: `${logoSize * 0.25}rem`,
-                  background: darkMode 
-                    ? `linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)`
-                    : `linear-gradient(135deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.1) 100%)`,
-                  border: `1px solid ${darkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
-                  boxShadow: `0 4px 12px ${darkMode ? 'rgba(0,0,0,0.3)' : 'rgba(0,0,0,0.1)'}`,
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleLinkClick("#home");
                 }}
+                className="relative flex items-center justify-center group transition-all duration-300"
               >
-                {/* Animated background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-all duration-500" />
-                
-                {/* Logo text */}
-                <span 
-                  className="relative z-10 font-black tracking-wider transition-all duration-500 group-hover:text-white"
-                  style={{ 
-                    fontSize: `${(0.875 - scrollProgress * 0.125) * textScale}rem`,
-                    color: darkMode ? '#ffffff' : '#000000',
-                    textShadow: `0 2px 4px ${darkMode ? 'rgba(0,0,0,0.5)' : 'rgba(255,255,255,0.5)'}`
+                <div 
+                  className="relative w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500/10 via-blue-500/5 to-blue-500/10 flex items-center justify-center border border-blue-500/20 shadow-sm hover:shadow-md hover:scale-105 transition-all duration-300"
+                  style={{
+                    transform: `scale(${1 - scrollProgress * 0.1})`,
                   }}
                 >
-                  AY.
-                </span>
-                
-                {/* Hover ring effect */}
-                <div className="absolute inset-0 rounded-xl border-2 border-transparent group-hover:border-white/30 transition-all duration-500 group-hover:animate-pulse" />
+                  <span className="text-base font-black bg-gradient-to-br from-blue-600 to-blue-800 bg-clip-text text-transparent group-hover:text-blue-600 transition-all duration-300">
+                    AY.
+                  </span>
+                </div>
               </a>
             </div>
 
@@ -265,8 +366,8 @@ const Navigation = () => {
             </div>
 
             {/* Right Side */}
-          <div className="flex items-center gap-2 md:gap-4">
-            {/* Dark Mode Toggle - visible on both mobile and desktop */}
+          <div className="flex items-center gap-4">
+            {/* Dark Mode Toggle */}
             <Button
               variant="ghost"
               size="icon"
@@ -274,9 +375,9 @@ const Navigation = () => {
               className="rounded-full hover:bg-zinc-100/80 dark:hover:bg-zinc-800/50 transition-all duration-300 hover:scale-110"
             >
               {darkMode ? (
-                <Sun className="h-4 w-4 md:h-5 md:w-5 text-zinc-900 dark:text-zinc-100" />
+                <Sun className="h-5 w-5 text-zinc-900 dark:text-zinc-100" />
               ) : (
-                <Moon className="h-4 w-4 md:h-5 md:w-5 text-zinc-600 dark:text-zinc-400" />
+                <Moon className="h-5 w-5 text-zinc-600 dark:text-zinc-400" />
               )}
               <span className="sr-only">Toggle theme</span>
             </Button>
@@ -289,19 +390,19 @@ const Navigation = () => {
               onClick={() => setIsOpen(!isOpen)}
             >
               {isOpen ? (
-                <X className="h-5 w-5 text-zinc-900 dark:text-zinc-100" />
+                <X className="h-6 w-6 text-zinc-900 dark:text-zinc-100" />
               ) : (
-                <Menu className="h-5 w-5 text-zinc-900 dark:text-zinc-100" />
+                <Menu className="h-6 w-6 text-zinc-900 dark:text-zinc-100" />
               )}
               <span className="sr-only">Toggle menu</span>
             </Button>
           </div>
         </div>
 
-        {/* Update Mobile Navigation */}
+        {/* Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden animate-in slide-in-from-top duration-300">
-            <div className="px-2 py-3 space-y-1 border-t dark:border-zinc-800">
+          <div className="md:hidden animate-fade-in-down">
+            <div className="px-4 pt-3 pb-4 space-y-2 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border border-zinc-200 dark:border-zinc-700 rounded-2xl mt-2 shadow-xl transition-all duration-300">
               {navItems.map((item) => (
                 <a
                   key={item.name}
@@ -311,7 +412,7 @@ const Navigation = () => {
                     handleLinkClick(item.href);
                   }}
                   className={cn(
-                    "block px-3 py-2 text-sm font-medium transition-colors duration-200 rounded-lg",
+                    "block px-3 py-2 text-sm font-medium transition-colors duration-200 rounded-md",
                     activeSection === item.href
                       ? "text-zinc-900 dark:text-zinc-100 bg-zinc-100/40 dark:bg-zinc-800/60"
                       : "text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 hover:dark:text-zinc-100 hover:bg-zinc-100/40 dark:hover:bg-zinc-800/60"
