@@ -5,39 +5,47 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-background border-t">
+    <footer className="bg-background border-t border-border">
       <div className="container mx-auto px-6 py-12">
         <div className="grid md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="md:col-span-2">
-            <h3 className="text-2xl font-bold mb-4">Alex Chen</h3>
+            <h3 className="text-2xl font-bold mb-4 text-foreground">Abhijeet Yadav</h3>
             <p className="text-muted-foreground max-w-md">
-              Full Stack Developer passionate about creating exceptional digital experiences. 
-              Let's build something amazing together.
+              Full Stack Developer passionate about building scalable and intuitive web applications.
+              Let's innovate together!
             </p>
             <div className="flex gap-4 mt-6">
-              <Button variant="ghost" size="icon" className="rounded-full">
-                <Github className="h-5 w-5" />
-                <span className="sr-only">GitHub</span>
+              <Button variant="ghost" size="icon" className="rounded-full" asChild>
+                <a href="https://github.com/yourgithub" target="_blank" rel="noopener noreferrer">
+                  <Github className="h-5 w-5" />
+                  <span className="sr-only">GitHub</span>
+                </a>
               </Button>
-              <Button variant="ghost" size="icon" className="rounded-full">
-                <Linkedin className="h-5 w-5" />
-                <span className="sr-only">LinkedIn</span>
+              <Button variant="ghost" size="icon" className="rounded-full" asChild>
+                <a href="https://linkedin.com/in/yourlinkedin" target="_blank" rel="noopener noreferrer">
+                  <Linkedin className="h-5 w-5" />
+                  <span className="sr-only">LinkedIn</span>
+                </a>
               </Button>
-              <Button variant="ghost" size="icon" className="rounded-full">
-                <Twitter className="h-5 w-5" />
-                <span className="sr-only">Twitter</span>
+              <Button variant="ghost" size="icon" className="rounded-full" asChild>
+                <a href="mailto:your@email.com">
+                  <Mail className="h-5 w-5" />
+                  <span className="sr-only">Email</span>
+                </a>
               </Button>
-              <Button variant="ghost" size="icon" className="rounded-full">
-                <Mail className="h-5 w-5" />
-                <span className="sr-only">Email</span>
+              <Button variant="ghost" size="icon" className="rounded-full" asChild>
+                <a href="https://twitter.com/yourhandle" target="_blank" rel="noopener noreferrer">
+                  <Twitter className="h-5 w-5" />
+                  <span className="sr-only">Twitter</span>
+                </a>
               </Button>
             </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-semibold mb-4">Quick Links</h4>
+            <h4 className="font-semibold mb-4 text-foreground">Quick Links</h4>
             <ul className="space-y-2">
               <li>
                 <a href="#about" className="text-muted-foreground hover:text-primary transition-colors">
@@ -50,8 +58,8 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="#blog" className="text-muted-foreground hover:text-primary transition-colors">
-                  Blog
+                <a href="#resume" className="text-muted-foreground hover:text-primary transition-colors">
+                  Resume
                 </a>
               </li>
               <li>
@@ -64,27 +72,19 @@ const Footer = () => {
 
           {/* Services */}
           <div>
-            <h4 className="font-semibold mb-4">Services</h4>
+            <h4 className="font-semibold mb-4 text-foreground">Services</h4>
             <ul className="space-y-2">
-              <li>
-                <span className="text-muted-foreground">Web Development</span>
-              </li>
-              <li>
-                <span className="text-muted-foreground">Mobile Apps</span>
-              </li>
-              <li>
-                <span className="text-muted-foreground">UI/UX Design</span>
-              </li>
-              <li>
-                <span className="text-muted-foreground">Consulting</span>
-              </li>
+              <li><span className="text-muted-foreground">Web Development</span></li>
+              <li><span className="text-muted-foreground">Frontend Engineering</span></li>
+              <li><span className="text-muted-foreground">UI/UX Design</span></li>
+              <li><span className="text-muted-foreground">Hackathon Projects</span></li>
             </ul>
           </div>
         </div>
 
         <div className="border-t mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-muted-foreground text-sm">
-            © {currentYear} Alex Chen. All rights reserved.
+            © {currentYear} Abhijeet Yadav. All rights reserved.
           </p>
           <div className="flex gap-6 mt-4 md:mt-0">
             <a href="#" className="text-muted-foreground hover:text-primary text-sm transition-colors">
