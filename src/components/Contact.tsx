@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Mail, MapPin, Phone, Send, Github, Linkedin, Twitter, CheckCircle, Clock } from "lucide-react";
+import { Mail, MapPin, Phone, Send, Github, Linkedin, Twitter, CheckCircle, Clock, Instagram } from "lucide-react";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -82,9 +82,8 @@ const Contact = () => {
 
               <div className="space-y-6">
                 {[
-                  { icon: Mail, label: "Email", value: "hello@abhijeet.dev", color: "text-blue-600" },
-                  { icon: Phone, label: "Phone", value: "+1 (555) 123-4567", color: "text-green-600" },
-                  { icon: MapPin, label: "Location", value: "San Francisco, CA", color: "text-red-600" }
+                  { icon: Mail, label: "Email", value: "abhijeetyadav33xb@gmail.com", color: "text-blue-600" },
+                  { icon: MapPin, label: "Location", value: "Mumbai, India", color: "text-red-600" }
                 ].map((item, index) => (
                   <div key={index} className="group flex items-center gap-4 p-4 rounded-xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border border-white/20 dark:border-slate-700/20 hover:bg-white/80 dark:hover:bg-slate-800/80 transition-all duration-300 hover:shadow-lg">
                     <div className={`flex items-center justify-center w-12 h-12 bg-gradient-to-br from-${item.color.split('-')[1]}-100 to-${item.color.split('-')[1]}-200 dark:from-${item.color.split('-')[1]}-900/30 dark:to-${item.color.split('-')[1]}-800/30 rounded-lg group-hover:scale-110 transition-transform duration-300`}>
@@ -103,9 +102,9 @@ const Contact = () => {
                 <h4 className="text-xl font-semibold mb-4 text-slate-800 dark:text-slate-200">Follow Me</h4>
                 <div className="flex gap-4">
                   {[
-                    { icon: Github, href: "#", color: "hover:text-gray-900 dark:hover:text-gray-100" },
-                    { icon: Linkedin, href: "#", color: "hover:text-blue-600" },
-                    { icon: Twitter, href: "#", color: "hover:text-sky-500" }
+                    { icon: Github, href: "https://github.com/Abhi-engg", color: "hover:text-gray-900 dark:hover:text-gray-100" },
+                    { icon: Linkedin, href: "https://www.linkedin.com/in/abhijeet-yadav-429b83212/", color: "hover:text-blue-600" },
+                    { icon: Instagram, href: "https://www.instagram.com/kabhii.abhi/", color: "hover:text-sky-500" }
                   ].map((social, index) => (
                     <a
                       key={index}
@@ -201,7 +200,7 @@ const Contact = () => {
                   <Button
                     type="submit"
                     disabled={isSubmitting || isSubmitted}
-                    className="w-full group bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 hover:shadow-lg disabled:opacity-70 disabled:cursor-not-allowed"
+                    className="w-full group duration-300 ease-out hover:scale-105 bg-gradient-to-r from-blue-600 border-slate-200 dark:border-slate-700 text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 hover:shadow-lg disabled:opacity-70 disabled:cursor-not-allowed"
                   >
                     {isSubmitting ? (
                       <>

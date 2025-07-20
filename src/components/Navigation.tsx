@@ -152,7 +152,8 @@ const Navigation = () => {
       
       <nav
         className={cn(
-          "fixed left-1/2 z-50 rounded-full transition-all duration-700 ease-out hidden md:block",
+          "fixed top-0 left-0 right-0 z-50 w-full transition-all duration-700 ease-out",
+          "mx-auto my-2 max-w-[95%] md:max-w-none rounded-2xl md:rounded-none", // Added rounded corners for mobile
           isScrolling
             ? darkMode
               ? "bg-zinc-900/80 border border-zinc-800/60 shadow-2xl"
@@ -160,29 +161,17 @@ const Navigation = () => {
             : "bg-transparent border-transparent"
         )}
         style={{
-          top: `${navTop}rem`,
-          width: `${navWidth}%`,
-          maxWidth: isScrolling ? "650px" : "1000px",
-          transform: `translateX(-50%) scale(${navScale}) translateY(${direction === 'down' ? velocityEffect * 2 : -velocityEffect * 2}px)`,
           backdropFilter: `blur(${dynamicBlur}px)`,
           opacity: dynamicOpacity,
           boxShadow: isScrolling
             ? darkMode
-              ? `0 ${8 + shadowIntensity * 12}px ${40 + shadowIntensity * 20}px rgba(0, 0, 0, ${0.4 + shadowIntensity * 0.2}), 0 ${2 + shadowIntensity * 4}px ${10 + shadowIntensity * 10}px rgba(0, 0, 0, ${0.3 + shadowIntensity * 0.2})`
-              : `0 ${8 + shadowIntensity * 12}px ${40 + shadowIntensity * 20}px rgba(0, 0, 0, ${0.15 + shadowIntensity * 0.1}), 0 ${2 + shadowIntensity * 4}px ${10 + shadowIntensity * 10}px rgba(0, 0, 0, ${0.1 + shadowIntensity * 0.1})`
+              ? `0 ${8 + shadowIntensity * 12}px ${40 + shadowIntensity * 20}px rgba(0, 0, 0, ${0.4 + shadowIntensity * 0.2})`
+              : `0 ${8 + shadowIntensity * 12}px ${40 + shadowIntensity * 20}px rgba(0, 0, 0, ${0.15 + shadowIntensity * 0.1})`
             : "none",
-          borderColor: isScrolling 
-            ? darkMode 
-              ? `rgba(113, 113, 122, ${borderOpacity})`
-              : `rgba(228, 228, 231, ${borderOpacity})`
-            : "transparent"
         }}
       >
         <div 
-          className="container mx-auto transition-all duration-700 ease-out"
-          style={{ 
-            padding: `0 ${1.5 - scrollProgress * 0.5}rem`
-          }}
+          className="container mx-auto transition-all duration-700 ease-out px-4 md:px-6"
         >
           <div 
             className="flex items-center justify-between transition-all duration-700 ease-out"
@@ -264,7 +253,7 @@ const Navigation = () => {
                     <div
                       className={cn(
                         "absolute bottom-0 left-1/2 -translate-x-1/2 transition-all duration-500 rounded-full",
-                        "bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500",
+                        "bg-gradient-to-r from-blue-600 to-black",
                         activeSection === item.href
                           ? "w-8 h-0.5 opacity-100"
                           : "w-0 h-0.5 opacity-0 group-hover:w-8 group-hover:opacity-100"
@@ -276,8 +265,8 @@ const Navigation = () => {
             </div>
 
             {/* Right Side */}
-          <div className="flex items-center gap-4">
-            {/* Dark Mode Toggle */}
+          <div className="flex items-center gap-2 md:gap-4">
+            {/* Dark Mode Toggle - visible on both mobile and desktop */}
             <Button
               variant="ghost"
               size="icon"
@@ -285,9 +274,9 @@ const Navigation = () => {
               className="rounded-full hover:bg-zinc-100/80 dark:hover:bg-zinc-800/50 transition-all duration-300 hover:scale-110"
             >
               {darkMode ? (
-                <Sun className="h-5 w-5 text-zinc-900 dark:text-zinc-100" />
+                <Sun className="h-4 w-4 md:h-5 md:w-5 text-zinc-900 dark:text-zinc-100" />
               ) : (
-                <Moon className="h-5 w-5 text-zinc-600 dark:text-zinc-400" />
+                <Moon className="h-4 w-4 md:h-5 md:w-5 text-zinc-600 dark:text-zinc-400" />
               )}
               <span className="sr-only">Toggle theme</span>
             </Button>
@@ -300,19 +289,19 @@ const Navigation = () => {
               onClick={() => setIsOpen(!isOpen)}
             >
               {isOpen ? (
-                <X className="h-6 w-6 text-zinc-900 dark:text-zinc-100" />
+                <X className="h-5 w-5 text-zinc-900 dark:text-zinc-100" />
               ) : (
-                <Menu className="h-6 w-6 text-zinc-900 dark:text-zinc-100" />
+                <Menu className="h-5 w-5 text-zinc-900 dark:text-zinc-100" />
               )}
               <span className="sr-only">Toggle menu</span>
             </Button>
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Update Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden animate-fade-in-down">
-            <div className="px-4 pt-3 pb-4 space-y-2 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border border-zinc-200 dark:border-zinc-700 rounded-2xl mt-2 shadow-xl transition-all duration-300">
+          <div className="md:hidden animate-in slide-in-from-top duration-300">
+            <div className="px-2 py-3 space-y-1 border-t dark:border-zinc-800">
               {navItems.map((item) => (
                 <a
                   key={item.name}
@@ -322,7 +311,7 @@ const Navigation = () => {
                     handleLinkClick(item.href);
                   }}
                   className={cn(
-                    "block px-3 py-2 text-sm font-medium transition-colors duration-200 rounded-md",
+                    "block px-3 py-2 text-sm font-medium transition-colors duration-200 rounded-lg",
                     activeSection === item.href
                       ? "text-zinc-900 dark:text-zinc-100 bg-zinc-100/40 dark:bg-zinc-800/60"
                       : "text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 hover:dark:text-zinc-100 hover:bg-zinc-100/40 dark:hover:bg-zinc-800/60"

@@ -8,67 +8,68 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Github } from "lucide-react";
-import project1 from "@/assets/project-1.jpg";
-import project2 from "@/assets/project-2.jpg";
-import project3 from "@/assets/project-3.jpg";
+import listifyImage from "@/assets/listifyImage.png";
+// import fitlifeImage from "@/assets/fitlifeImage.png";
+// import farmerMarketplaceImage from "@/assets/farmerMarketplaceImage.png";
+import classTimetableImage from "@/assets/classTimetableImage.png";
+import campusConnectImage from "@/assets/campusConnectImage.png";
 
 const Projects = () => {
   const projects = [
     {
-      title: "ListiFy - To-Do Manager",
+      title: "ListiFy - To-Do-List",
       description:
-        "A productivity web app with smart task management, personalized timetables, sticky notes, and an AI-powered scheduler. Built for seamless planning and tracking.",
-      // image: listifyImage, // Replace with actual image import
-      technologies: ["React", "JavaScript", "Tailwind CSS", "Vite"],
-      liveUrl: "https://listify.vercel.app", // Replace with actual URL
-      githubUrl: "https://github.com/yourusername/listify", // Replace with actual repo
+        "A productivity web app with smart task management, personalized timetables, sticky notes. Built for seamless planning and tracking.",
+      image: listifyImage, 
+      technologies: ["HTML", "CSS", "JavaScript"],
+      liveUrl: "https://listi-fy-to-do-list-website-aiyfywnx8-abhi-enggs-projects.vercel.app/", 
+      githubUrl: "https://github.com/Abhi-engg/ListiFy-To-do-List-Website",
     },
     {
       title: "FitLife - Fitness Tracker",
       description:
         "A fitness companion app for goal tracking, calorie monitoring, and personalized workout plans. Includes interactive forms and health insights.",
       // image: fitlifeImage,
-      technologies: ["React", "Tailwind CSS", "JavaScript"],
-      liveUrl: "#", // Add actual URL
-      githubUrl: "#",
+      technologies: ["Html", "CSS", "JavaScript"],
+      liveUrl: "https://github.com/Abhi-engg/FitLife--A-Fitness-Guide", 
+      githubUrl: "https://github.com/Abhi-engg/FitLife--A-Fitness-Guide",
     },
     {
       title: "Farmer Marketplace",
       description:
         "A sustainable shopping platform that connects local farmers with consumers. Includes location-based discovery, price tracking, and fresh produce listings.",
       // image: farmerMarketplaceImage,
-      technologies: ["React", "Tailwind CSS", "JavaScript"],
-      liveUrl: "#",
-      githubUrl: "#",
+      technologies: ["React", "Tailwind CSS","Django","postgreSQL"],
+      liveUrl: "https://github.com/Abhi-engg/Farmer-Marketplace",
+      githubUrl: "https://github.com/Abhi-engg/Farmer-Marketplace",
     },
     {
       title: "ClassTimetable App",
       description:
         "A responsive app for viewing and managing college schedules, with features like color-coded subjects and user-friendly UI.",
-      // image: classTimetableImage,
-      technologies: ["React", "Tailwind CSS"],
-      liveUrl: "#",
-      githubUrl: "#",
+      image: classTimetableImage,
+      technologies: ["React", "Tailwind CSS",""],
+      liveUrl: "https://github.com/Abhi-engg/Class-Time-table",
+      githubUrl: "https://github.com/Abhi-engg/Class-Time-table",
     },
     {
       title: "CampusConnect - Student Collaboration Hub",
       description:
         "A feature-rich platform connecting students and faculty for networking, events, mentorship, and collaborative learning. Includes real-time messaging, shared study materials, course creation, and profile management.",
-      // image: campusConnectImage, // Replace with your actual image import
+      image: campusConnectImage, 
       technologies: [
         "React",
         "Django",
-        "MongoDB",
-        "WebSockets",
+        "postgreSQL",
         "Tailwind CSS",
       ],
-      liveUrl: "#", // Replace with deployed link if available
-      githubUrl: "#", // Replace with GitHub repo link
+      liveUrl: "https://github.com/Satya0418/Campus_connect", 
+      githubUrl: "https://github.com/Satya0418/Campus_connect", 
     },
   ];
 
   return (
-    <section id="projects" className="py-20 bg-muted/30">
+    <section id="projects" className="py-20 ">
       <div className="container mx-auto px-7">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16 p-6">

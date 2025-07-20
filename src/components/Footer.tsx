@@ -17,19 +17,19 @@ const Footer = () => {
             </p>
             <div className="flex gap-4 mt-6">
               <Button variant="ghost" size="icon" className="rounded-full" asChild>
-                <a href="https://github.com/yourgithub" target="_blank" rel="noopener noreferrer">
+                <a href="https://github.com/Abhi-engg" target="_blank" rel="noopener noreferrer">
                   <Github className="h-5 w-5" />
                   <span className="sr-only">GitHub</span>
                 </a>
               </Button>
               <Button variant="ghost" size="icon" className="rounded-full" asChild>
-                <a href="https://linkedin.com/in/yourlinkedin" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.linkedin.com/in/abhijeet-yadav-429b83212/" target="_blank" rel="noopener noreferrer">
                   <Linkedin className="h-5 w-5" />
                   <span className="sr-only">LinkedIn</span>
                 </a>
               </Button>
               <Button variant="ghost" size="icon" className="rounded-full" asChild>
-                <a href="mailto:your@email.com">
+                <a href="abhijeetyadav33xb@gmail.com">
                   <Mail className="h-5 w-5" />
                   <span className="sr-only">Email</span>
                 </a>

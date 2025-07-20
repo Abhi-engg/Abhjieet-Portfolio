@@ -3,15 +3,14 @@ import { Card, CardContent } from "@/components/ui/card";
 
 const About = () => {
   const skills = [
-    { name: "Frontend Development (React / Vue / Next.js)", level: 90 },
-    { name: "Backend Development (Node.js / Python / Java)", level: 85 },
-    // { name: "Database Design & Management", level: 80 },
-    // { name: "DevOps & Cloud Infrastructure", level: 75 },
-    // { name: "UI/UX Design & Product Strategy", level: 70 },
+    { name: "Frontend Development", level: 90, tech: "React, Next.js, TypeScript" },
+    { name: "Backend Development", level: 85, tech: "Node.js, Python, Express" },
+    { name: "Database Management", level: 80, tech: "MongoDB, PostgreSQL, MySQL" },
+    
   ];
 
   return (
-    <section id="about" className="py-20 ">
+    <section id="about" className="py-20">
       <div className="container mx-auto px-6">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
@@ -47,17 +46,24 @@ const About = () => {
               <h3 className="text-xl font-semibold mb-6">Technical Skills</h3>
               <div className="space-y-6">
                 {skills.map((skill, index) => (
-                  <Card key={index} className="p-4">
+                  <Card key={index} className="p-4 hover:shadow-md transition-all duration-300">
                     <CardContent className="p-0">
-                      <div className="flex justify-between items-center mb-2">
-                        <span className="text-sm font-medium">{skill.name}</span>
-                        <span className="text-sm text-muted-foreground">{skill.level}%</span>
+                      <div className="space-y-2">
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm font-semibold">{skill.name}</span>
+                          <span className="text-sm text-muted-foreground">{skill.level}%</span>
+                        </div>
+                        <Progress 
+                          value={skill.level} 
+                          className="h-2"
+                          style={{
+                            "--progress-background": `hsl(${skill.level * 2}, 70%, 50%)`
+                          } as React.CSSProperties}
+                        />
+                        <p className="text-xs text-muted-foreground mt-1">
+                          {skill.tech}
+                        </p>
                       </div>
-                      <Progress 
-                        value={skill.level} 
-                        className="h-2"
-                        style={{"--progress-background": "hsl(var(--skill-progress))"} as React.CSSProperties}
-                      />
                     </CardContent>
                   </Card>
                 ))}

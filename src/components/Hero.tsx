@@ -108,8 +108,8 @@ const Hero = () => {
             >
               <Button 
                 size="lg" 
-                className="group relative overflow-hidden transition-all duration-300 ease-out hover:scale-105 hover:shadow-xl"
-              >
+                className="group relative overflow-hidden transition-all duration-300 ease-out hover:scale-105 bg-gradient-to-r from-blue-600 border-slate-200 dark:border-slate-700 text-white  rounded-lg  disabled:opacity-70 disabled:cursor-not-allowed hover:shadow-xl ">
+              
                 <span className="relative z-10 flex items-center">
                   Contact Me
                   <Mail className="ml-2 h-4 w-4 transition-all duration-300 group-hover:translate-x-1 group-hover:rotate-12" />
@@ -117,11 +117,11 @@ const Hero = () => {
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
               </Button>
               <Button 
-                variant="outline" 
+      
                 size="lg" 
-                className="group relative overflow-hidden transition-all duration-300 ease-out hover:scale-105 hover:shadow-lg hover:border-primary/50"
-              >
-                <span className="relative z-10 flex items-center transition-colors duration-300 group-hover:text-primary">
+                className="group relative overflow-hidden transition-all duration-300 ease-out hover:scale-105 bg-gradient-to-r from-blue-600 border-slate-200 dark:border-slate-700 text-white  rounded-lg  disabled:opacity-70 disabled:cursor-not-allowed hover:shadow-xl ">
+  
+                <span className="relative z-10 flex ">
                   View Projects
                   <ArrowDown className="ml-2 h-4 w-4 transition-all duration-300 group-hover:translate-y-1 group-hover:animate-bounce" />
                 </span>
