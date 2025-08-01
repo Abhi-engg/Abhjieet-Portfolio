@@ -1,12 +1,35 @@
 import { Progress } from "@/components/ui/progress";
 import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 const About = () => {
   const skills = [
-    { name: "Frontend Development", level: 90, tech: "React, Next.js, TypeScript" },
-    { name: "Backend Development", level: 85, tech: "Node.js, Python, Express" },
-    { name: "Database Management", level: 80, tech: "MongoDB, PostgreSQL, MySQL" },
-    
+    {
+      name: "Frontend Development",
+      level: 75,
+      tech: "React, HTML/CSS, TypeScript, Tailwind CSS",
+    },
+    {
+      name: "Backend Development",
+      level: 50,
+      tech: "Node.js, Django, Express",
+    },
+    {
+      name: "Database Management",
+      level: 60,
+      tech: "MongoDB, PostgreSQL, MySQL",
+    },
+  ];
+
+  const interests = [
+    "Web Development",
+    "UI/UX Design",
+    "Open Source",
+    "Machine Learning",
+    "Cloud Computing",
+    "Mobile Apps",
+    "Blockchain",
+    "IoT",
   ];
 
   return (
@@ -14,60 +37,88 @@ const About = () => {
       <div className="container mx-auto px-6">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">About Me</h2>
-            <div className="w-20 h-1 bg-primary mx-auto"></div>
+            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-slate-800 to-slate-600 dark:from-slate-200 dark:to-slate-400 bg-clip-text text-transparent">
+              About Me
+            </h2>
+            <div className="w-20 h-1 bg-gradient-to-r from-slate-800 to-slate-600 dark:from-slate-200 dark:to-slate-400 mx-auto rounded-full"></div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-12 items-start">
+          <div className="grid md:grid-cols-2 gap-12 items-start mt-10">
             {/* Left: Description */}
             <div className="space-y-6">
               <div>
-                <h3 className="text-xl font-semibold mb-4">Professional Background</h3>
+                <h3 className="text-xl font-semibold mb-4 bg-gradient-to-r from-slate-800 to-slate-600 dark:from-slate-200 dark:to-slate-400 bg-clip-text text-transparent">
+                  Professional Background
+                </h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  I'm a passionate full-stack developer with over 5 years of experience creating 
-                  digital solutions that make a difference. I specialize in modern web technologies 
-                  and have a strong foundation in both frontend and backend development.
+                  I’m a Full Stack Developer skilled in React, Node.js, and Django. I love building
+                  modern, user-focused web apps and exploring tech like AI, UI/UX, and cloud. Passionate
+                  about solving real-world problems through code.
                 </p>
               </div>
 
               <div>
-                <h3 className="text-xl font-semibold mb-4">Technical Expertise</h3>
+                <h3 className="text-xl font-semibold mb-4 bg-gradient-to-r from-slate-800 to-slate-600 dark:from-slate-200 dark:to-slate-400 bg-clip-text text-transparent">
+                  Technical Expertise
+                </h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  My expertise spans across the entire development stack, from crafting intuitive 
-                  user interfaces with React and Vue.js to building robust backend systems with 
-                  Node.js and Python. I'm passionate about clean code, performance optimization, 
-                  and creating seamless user experiences.
+                  My expertise spans the full stack—from crafting intuitive interfaces with React to
+                  building scalable backends with Django and Node.js. I value clean code, performance,
+                  and user-centric design.
                 </p>
               </div>
             </div>
 
             {/* Right: Skills */}
             <div>
-              <h3 className="text-xl font-semibold mb-6">Technical Skills</h3>
+              <h3 className="text-xl font-semibold mb-6 bg-gradient-to-r from-slate-800 to-slate-600 dark:from-slate-200 dark:to-slate-400 bg-clip-text text-transparent">
+                Technical Skills
+              </h3>
               <div className="space-y-6">
                 {skills.map((skill, index) => (
-                  <Card key={index} className="p-4 hover:shadow-md transition-all duration-300">
+                  <Card
+                    key={index}
+                    className="p-4 hover:shadow-md transition-all duration-300 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600"
+                  >
                     <CardContent className="p-0">
                       <div className="space-y-2">
                         <div className="flex justify-between items-center">
                           <span className="text-sm font-semibold">{skill.name}</span>
                           <span className="text-sm text-muted-foreground">{skill.level}%</span>
                         </div>
-                        <Progress 
-                          value={skill.level} 
+                        <Progress
+                          value={skill.level}
                           className="h-2"
-                          style={{
-                            "--progress-background": `hsl(${skill.level * 2}, 70%, 50%)`
-                          } as React.CSSProperties}
+                          style={
+                            {
+                              "--progress-background": `hsl(${skill.level * 2}, 70%, 50%)`,
+                            } as React.CSSProperties
+                          }
                         />
-                        <p className="text-xs text-muted-foreground mt-1">
-                          {skill.tech}
-                        </p>
+                        <p className="text-xs text-muted-foreground mt-1">{skill.tech}</p>
                       </div>
                     </CardContent>
                   </Card>
                 ))}
               </div>
+            </div>
+          </div>
+
+          {/* Interests Section */}
+          <div className="mt-16">
+            <h3 className="text-xl font-semibold mb-6 text-center bg-gradient-to-r from-slate-800 to-slate-600 dark:from-slate-200 dark:to-slate-400 bg-clip-text text-transparent">
+              Areas of Interest
+            </h3>
+            <div className="flex flex-wrap justify-center gap-3 mt-4">
+              {interests.map((interest, index) => (
+                <Badge
+                  key={index}
+                  variant="outline"
+                  className="px-4 py-2 text-sm bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all duration-300"
+                >
+                  {interest}
+                </Badge>
+              ))}
             </div>
           </div>
         </div>

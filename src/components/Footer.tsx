@@ -73,16 +73,8 @@ const Footer = () => {
 
         <div className="border-t mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-muted-foreground text-sm">
-            © {currentYear} Abhijeet Yadav. All rights reserved.
+            © {currentYear} Abhijeet Yadav.
           </p>
-          <div className="flex gap-6 mt-4 md:mt-0">
-            <a href="#" className="text-muted-foreground hover:text-primary text-sm transition-colors">
-              Privacy Policy
-            </a>
-            <a href="#" className="text-muted-foreground hover:text-primary text-sm transition-colors">
-              Terms of Service
-            </a>
-          </div>
         </div>
       </div>
     </footer>

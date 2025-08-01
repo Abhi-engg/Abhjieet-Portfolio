@@ -10,7 +10,7 @@ const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [currentRole, setCurrentRole] = useState(0);
   const roles = ["Full Stack Developer", "React Developer", "Problem Solver"];
-  const techStack = ["React", "TypeScript", "Vite", "Tailwind CSS"];
+  const techStack = ["React", "Node.js", "Python", "Danjgo","MongoDB"];
 
   useEffect(() => {
     setIsVisible(true);
@@ -110,7 +110,7 @@ const Hero = () => {
             >
               <Button 
                 size="lg" 
-                className="w-full sm:w-auto text-sm sm:text-base group relative overflow-hidden transition-all duration-300 ease-out hover:scale-105 bg-gradient-to-r from-blue-600 border-slate-200 dark:border-slate-700 text-white  rounded-lg  disabled:opacity-70 disabled:cursor-not-allowed hover:shadow-xl ">
+                className="w-full sm:w-auto text-sm sm:text-base group relative overflow-hidden transition-all duration-300 ease-out hover:scale-105 bg-gradient-to-r from-blue-600 to-blue-700 text-white  rounded-lg  disabled:opacity-70 disabled:cursor-not-allowed hover:shadow-xl ">
               
                 <span className="relative z-10 flex items-center">
                   Contact Me
@@ -120,7 +120,7 @@ const Hero = () => {
               </Button>
               <Button 
                 size="lg" 
-                className="w-full sm:w-auto text-sm sm:text-base group relative overflow-hidden transition-all duration-300 ease-out hover:scale-105 bg-gradient-to-r from-blue-600 border-slate-200 dark:border-slate-700 text-white  rounded-lg  disabled:opacity-70 disabled:cursor-not-allowed hover:shadow-xl ">
+                className="w-full sm:w-auto text-sm sm:text-base group relative overflow-hidden transition-all duration-300 ease-out hover:scale-105 bg-gradient-to-r from-blue-600 to-blue-700 text-white  rounded-lg  disabled:opacity-70 disabled:cursor-not-allowed hover:shadow-xl ">
   
                 <span className="relative z-10 flex ">
                   View Projects
