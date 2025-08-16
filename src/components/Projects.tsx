@@ -9,30 +9,35 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Github } from "lucide-react";
-import campusConnect from "@/assets/campusConnectImage.png"; // Example image, replace with actual path
-import farmerMarketplace from "@/assets/farmerMarketplaceImage.png"; // Example image, replace with actual path
-import fitLife from "@/assets/fitlifeImage.png"; // Example image, replace with actual path
-import classTimetable from "@/assets/classTimetableImage.png"; // Example image, replace with actual path
-import listify from "@/assets/listifyImage.png"; // Example image, replace with actual path
+import campusConnect from "@/assets/campusConnectImage.png";
+import farmerMarketplace from "@/assets/farmerMarketplaceImage.png";
+import fitLife from "@/assets/fitlifeImage.png";
+import classTimetable from "@/assets/classTimetableImage.png";
+import listify from "@/assets/listifyImage.png";
 
+// Add type for Project
+interface Project {
+  title: string;
+  description: string;
+  image: string;
+  technologies: string[];
+  liveUrl: string;
+  githubUrl: string;
+}
 
 const Projects = () => {
-  const [visibleProjects, setVisibleProjects] = useState([]);
+  // Update the useState type
+  const [visibleProjects, setVisibleProjects] = useState<number[]>([]);
 
-  const projects = [
+  const projects: Project[] = [
     {
       title: "CampusConnect - Student Collaboration Hub",
-      description: 
+      description:
         "CampusConnect helps students learn directly from faculty through shared courses, quizzes, and study materials.It offers real-time chat for easy communication and support.Students can also explore and register for college events and workshops.",
-      image: campusConnect, 
-      technologies: [
-        "React",
-        "Django",
-        "postgreSQL",
-        "Tailwind CSS",
-      ],
-      liveUrl: "https://github.com/Satya0418/Campus_connect", 
-      githubUrl: "https://github.com/Satya0418/Campus_connect", 
+      image: campusConnect,
+      technologies: ["React", "Django", "postgreSQL", "Tailwind CSS"],
+      liveUrl: "https://github.com/Satya0418/Campus_connect",
+      githubUrl: "https://github.com/Satya0418/Campus_connect",
     },
     {
       title: "ClassTimetable App",
@@ -48,7 +53,7 @@ const Projects = () => {
       description:
         "A sustainable shopping platform that connects local farmers with consumers. Includes location-based discovery, price tracking, and fresh produce listings.",
       image: farmerMarketplace,
-      technologies: ["React", "Tailwind CSS","Django","postgreSQL"],
+      technologies: ["React", "Tailwind CSS", "Django", "postgreSQL"],
       liveUrl: "https://github.com/Abhi-engg/Farmer-Marketplace",
       githubUrl: "https://github.com/Abhi-engg/Farmer-Marketplace",
     },
@@ -58,7 +63,7 @@ const Projects = () => {
         "A productivity web app with smart task management, personalized timetables, sticky notes. Built for seamless planning and tracking.",
       image: listify,
       technologies: ["HTML", "CSS", "JavaScript"],
-      liveUrl: "https://listi-fy-to-do-list-website-aiyfywnx8-abhi-enggs-projects.vercel.app/", 
+      liveUrl: "https://listi-fy-to-do-list-website-aiyfywnx8-abhi-enggs-projects.vercel.app/",
       githubUrl: "https://github.com/Abhi-engg/ListiFy-To-do-List-Website",
     },
     {
@@ -67,9 +72,9 @@ const Projects = () => {
         "A fitness companion app for goal tracking, calorie monitoring, and personalized workout plans. Includes interactive forms and health insights.",
       image: fitLife,
       technologies: ["Html", "CSS", "JavaScript"],
-      liveUrl: "https://github.com/Abhi-engg/FitLife--A-Fitness-Guide", 
+      liveUrl: "https://github.com/Abhi-engg/FitLife--A-Fitness-Guide",
       githubUrl: "https://github.com/Abhi-engg/FitLife--A-Fitness-Guide",
-    }
+    },
   ];
 
   useEffect(() => {
@@ -79,7 +84,7 @@ const Projects = () => {
           if (entry.isIntersecting) {
             const index = parseInt(entry.target.dataset.index);
             setTimeout(() => {
-              setVisibleProjects(prev => [...new Set([...prev, index])]);
+              setVisibleProjects((prev) => [...new Set([...prev, index])]);
             }, index * 150);
           }
         });
@@ -87,8 +92,8 @@ const Projects = () => {
       { threshold: 0.1 }
     );
 
-    const cards = document.querySelectorAll('.project-card');
-    cards.forEach(card => observer.observe(card));
+    const cards = document.querySelectorAll(".project-card");
+    cards.forEach((card) => observer.observe(card));
 
     return () => observer.disconnect();
   }, []);
@@ -114,9 +119,9 @@ const Projects = () => {
               <div
                 key={index}
                 className={`project-card transform transition-all duration-700 ${
-                  visibleProjects.includes(index) 
-                    ? 'translate-y-0 opacity-100' 
-                    : 'translate-y-8 opacity-0'
+                  visibleProjects.includes(index)
+                    ? "translate-y-0 opacity-100"
+                    : "translate-y-8 opacity-0"
                 }`}
                 data-index={index}
               >
@@ -130,12 +135,12 @@ const Projects = () => {
                       className="absolute inset-0 w-full h-full object-contain bg-gray-50 dark:bg-gray-900 transition-all duration-700 group-hover:scale-105 group-hover:rotate-1 group-hover:brightness-110"
                       loading="lazy"
                     />
-                    
+
                     {/* Enhanced Overlay - Update z-index */}
                     <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center gap-4 z-20 backdrop-blur-sm">
-                      <Button 
-                        variant="secondary" 
-                        size="sm" 
+                      <Button
+                        variant="secondary"
+                        size="sm"
                         asChild
                         className="transform -translate-x-8 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-500 delay-100 hover:scale-110 shadow-lg"
                       >
@@ -149,9 +154,9 @@ const Projects = () => {
                           Live Demo
                         </a>
                       </Button>
-                      <Button 
-                        variant="outline" 
-                        size="sm" 
+                      <Button
+                        variant="outline"
+                        size="sm"
                         asChild
                         className="transform translate-x-8 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-500 delay-200 hover:scale-110 shadow-lg"
                       >
@@ -186,7 +191,9 @@ const Projects = () => {
                           className="text-xs bg-tech-badge text-tech-badge-foreground transform transition-all duration-300 hover:scale-110 hover:shadow-md cursor-default opacity-80 group-hover:opacity-100"
                           style={{
                             animationDelay: `${techIndex * 0.1}s`,
-                            animation: visibleProjects.includes(index) ? 'slideInUp 0.5s ease-out forwards' : 'none'
+                            animation: visibleProjects.includes(index)
+                              ? "slideInUp 0.5s ease-out forwards"
+                              : "none",
                           }}
                         >
                           {tech}
@@ -201,8 +208,8 @@ const Projects = () => {
 
           {/* Enhanced View All Button */}
           <div className="text-center mt-12">
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               size="lg"
               className="relative overflow-hidden group border-2 hover:border-primary/50 transition-all duration-500 hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-1"
             >

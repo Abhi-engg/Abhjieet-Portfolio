@@ -4,7 +4,16 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
 import lifeCode from "@/assets/lifeCode.gif";
 import Abhimine from "@/assets/Abhimine.png";
- 
+import { keyframes, css } from '@emotion/react';
+
+const float = keyframes`
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg); 
+  }
+  50% { 
+    transform: translateY(-10px) rotate(5deg); 
+  }
+`;
 
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -110,19 +119,28 @@ const Hero = () => {
             >
               <Button 
                 size="lg" 
-                className="w-full sm:w-auto text-sm sm:text-base group relative overflow-hidden transition-all duration-300 ease-out hover:scale-105 bg-gradient-to-r from-blue-600 to-blue-700 text-white  rounded-lg  disabled:opacity-70 disabled:cursor-not-allowed hover:shadow-xl ">
-              
+                className="w-full sm:w-auto text-sm sm:text-base group relative overflow-hidden transition-all duration-300 ease-out hover:scale-105 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg disabled:opacity-70 disabled:cursor-not-allowed hover:shadow-xl"
+                onClick={() => {
+                  const contactSection = document.querySelector('#contact');
+                  contactSection?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
                 <span className="relative z-10 flex items-center">
                   Contact Me
                   <Mail className="ml-2 h-4 w-4 transition-all duration-300 group-hover:translate-x-1 group-hover:rotate-12" />
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
               </Button>
+
               <Button 
                 size="lg" 
-                className="w-full sm:w-auto text-sm sm:text-base group relative overflow-hidden transition-all duration-300 ease-out hover:scale-105 bg-gradient-to-r from-blue-600 to-blue-700 text-white  rounded-lg  disabled:opacity-70 disabled:cursor-not-allowed hover:shadow-xl ">
-  
-                <span className="relative z-10 flex ">
+                className="w-full sm:w-auto text-sm sm:text-base group relative overflow-hidden transition-all duration-300 ease-out hover:scale-105 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg disabled:opacity-70 disabled:cursor-not-allowed hover:shadow-xl"
+                onClick={() => {
+                  const projectsSection = document.querySelector('#projects');
+                  projectsSection?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                <span className="relative z-10 flex">
                   View Projects
                   <ArrowDown className="ml-2 h-4 w-4 transition-all duration-300 group-hover:translate-y-1 group-hover:animate-bounce" />
                 </span>
@@ -134,19 +152,39 @@ const Hero = () => {
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               }`}
             >
-              {[Github, Linkedin, Mail].map((Icon, index) => (
-                <Button 
-                  key={index}
+              <Button 
                   variant="ghost" 
                   size="icon" 
                   className="rounded-full relative overflow-hidden group transition-all duration-300 ease-out hover:scale-110 hover:shadow-lg"
-                  style={{ transitionDelay: `${index * 100}ms` }}
-                >
-                  <Icon className="h-5 w-5 transition-all duration-300 group-hover:rotate-6 group-hover:scale-110" />
-                  <span className="sr-only">Social Link</span>
-                  <div className="absolute inset-0 rounded-full bg-primary/10 scale-0 group-hover:scale-100 transition-transform duration-300"></div>
-                </Button>
-              ))}
+                  asChild
+              >
+                  <a href="https://github.com/Abhi-engg" target="_blank" rel="noopener noreferrer">
+                      <Github className="h-5 w-5 transition-all duration-300 group-hover:rotate-6 group-hover:scale-110" />
+                      <span className="sr-only">GitHub</span>
+                  </a>
+              </Button>
+              <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="rounded-full relative overflow-hidden group transition-all duration-300 ease-out hover:scale-110 hover:shadow-lg"
+                  asChild
+              >
+                  <a href="https://www.linkedin.com/in/abhijeet-yadav-429b83212/" target="_blank" rel="noopener noreferrer">
+                      <Linkedin className="h-5 w-5 transition-all duration-300 group-hover:rotate-6 group-hover:scale-110" />
+                      <span className="sr-only">LinkedIn</span>
+                  </a>
+              </Button>
+              <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="rounded-full relative overflow-hidden group transition-all duration-300 ease-out hover:scale-110 hover:shadow-lg"
+                  asChild
+              >
+                  <a href="mailto:abhijeetyadav33xb@gmail.com">
+                      <Mail className="h-5 w-5 transition-all duration-300 group-hover:rotate-6 group-hover:scale-110" />
+                      <span className="sr-only">Email</span>
+                  </a>
+              </Button>
             </div>
           </div>
 
