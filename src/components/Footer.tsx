@@ -123,7 +123,7 @@ const Footer = () => {
 						© {currentYear} Abhijeet Yadav.
 					</p>
 					<p className="text-muted-foreground text-sm">
-						Made with 💙 Love
+						Made with ❤️ 
 					</p>
 				</div>
 			</div>

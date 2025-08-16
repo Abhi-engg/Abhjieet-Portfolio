@@ -63,7 +63,8 @@ const Projects = () => {
         "A productivity web app with smart task management, personalized timetables, sticky notes. Built for seamless planning and tracking.",
       image: listify,
       technologies: ["HTML", "CSS", "JavaScript"],
-      liveUrl: "https://listi-fy-to-do-list-website-aiyfywnx8-abhi-enggs-projects.vercel.app/",
+      liveUrl:
+        "https://listi-fy-to-do-list-website-aiyfywnx8-abhi-enggs-projects.vercel.app/",
       githubUrl: "https://github.com/Abhi-engg/ListiFy-To-do-List-Website",
     },
     {
@@ -208,17 +209,23 @@ const Projects = () => {
 
           {/* Enhanced View All Button */}
           <div className="text-center mt-12">
-            <Button
-              variant="outline"
-              size="lg"
-              className="relative overflow-hidden group border-2 hover:border-primary/50 transition-all duration-500 hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-1"
+            <a
+              href="https://github.com/Abhi-engg?tab=repositories" // <-- Replace with your GitHub repo link
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              <span className="relative z-10 transition-colors duration-300 group-hover:text-primary">
-                View All Projects
-              </span>
-              <ExternalLink className="ml-2 h-4 w-4 relative z-10 transition-all duration-300 group-hover:translate-x-1 group-hover:text-primary" />
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-primary/20 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
-            </Button>
+              <Button
+                variant="outline"
+                size="lg"
+                className="relative overflow-hidden group border-2 hover:border-primary/50 transition-all duration-500 hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-1"
+              >
+                <span className="relative z-10 transition-colors duration-300 group-hover:text-primary">
+                  View All Projects
+                </span>
+                <ExternalLink className="ml-2 h-4 w-4 relative z-10 transition-all duration-300 group-hover:translate-x-1 group-hover:text-primary" />
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-primary/20 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+              </Button>
+            </a>
           </div>
         </div>
       </div>
