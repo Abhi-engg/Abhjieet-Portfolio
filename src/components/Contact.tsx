@@ -24,14 +24,14 @@ import {
   AlertCircle,
 } from "lucide-react";
 import useWeb3Forms from "@web3forms/react";
+import { db } from "@/lib/firebase";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
+    name: "",
     email: "",
-    subject: "",
-    message: "",
+    message: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -52,11 +52,9 @@ const Contact = () => {
       setTimeout(() => {
         setIsSubmitted(false);
         setFormData({
-          firstName: "",
-          lastName: "",
+          name: "",
           email: "",
-          subject: "",
-          message: "",
+          message: ""
         });
       }, 3000);
     },
@@ -79,27 +77,54 @@ const Contact = () => {
     setError("");
 
     try {
-      // Prepare data for submission
-      const formDataToSubmit = {
-        name: `${formData.firstName} ${formData.lastName}`,
+      // Validate form data
+      if (!formData.name || !formData.email || !formData.message) {
+        throw new Error("Please fill in all required fields");
+      }
+
+      // Prepare data for Firestore
+      const messageData = {
+        name: formData.name,
         email: formData.email,
-        subject: formData.subject,
         message: formData.message,
-        botcheck: "", // Honeypot spam protection
+        createdAt: new Date().toISOString(),
+        status: "unread"
       };
 
-      // Submit using the Web3Forms React hook
-      await submit(formDataToSubmit);
+      // Save to Firestore
+      const docRef = await addDoc(collection(db, "contacts"), messageData);
+      console.log("Message saved with ID: ", docRef.id);
+
+      // Submit to Web3Forms
+      await submit({
+        name: formData.name,
+        email: formData.email,
+        message: formData.message,
+        reference: docRef.id
+      });
+
+      setIsSubmitted(true);
+
+      // Reset form
+      setTimeout(() => {
+        setIsSubmitted(false);
+        setFormData({
+          name: "",
+          email: "",
+          message: ""
+        });
+      }, 3000);
+
     } catch (err) {
-      setError("Failed to submit the form. Please try again later.");
-      console.error(err);
+      console.error("Form submission error:", err);
+      setError(err.message || "Failed to submit the form. Please try again later.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <section id="contact" className="relative py-20 ">
+    <section id="contact" className="relative py-20">
       {/* Background Pattern */}
 
       <div className="container mx-auto px-6 relative z-10">
@@ -225,38 +250,19 @@ const Contact = () => {
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label
-                        htmlFor="firstName"
-                        className="text-sm font-medium"
-                      >
-                        First Name
-                      </Label>
-                      <Input
-                        id="firstName"
-                        name="firstName"
-                        value={formData.firstName}
-                        onChange={handleInputChange}
-                        placeholder="John"
-                        className="bg-white/50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:border-blue-500 focus:ring-blue-500/20 transition-all duration-300"
-                        required
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="lastName" className="text-sm font-medium">
-                        Last Name
-                      </Label>
-                      <Input
-                        id="lastName"
-                        name="lastName"
-                        value={formData.lastName}
-                        onChange={handleInputChange}
-                        placeholder="Doe"
-                        className="bg-white/50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:border-blue-500 focus:ring-blue-500/20 transition-all duration-300"
-                        required
-                      />
-                    </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="name" className="text-sm font-medium">
+                      Name
+                    </Label>
+                    <Input
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      placeholder="Your name"
+                      className="bg-white/50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:border-blue-500 focus:ring-blue-500/20 transition-all duration-300"
+                      required
+                    />
                   </div>
 
                   <div className="space-y-2">
@@ -269,22 +275,7 @@ const Contact = () => {
                       type="email"
                       value={formData.email}
                       onChange={handleInputChange}
-                      placeholder="john@example.com"
-                      className="bg-white/50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:border-blue-500 focus:ring-blue-500/20 transition-all duration-300"
-                      required
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="subject" className="text-sm font-medium">
-                      Subject
-                    </Label>
-                    <Input
-                      id="subject"
-                      name="subject"
-                      value={formData.subject}
-                      onChange={handleInputChange}
-                      placeholder="Project Collaboration"
+                      placeholder="you@example.com"
                       className="bg-white/50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:border-blue-500 focus:ring-blue-500/20 transition-all duration-300"
                       required
                     />
@@ -299,14 +290,14 @@ const Contact = () => {
                       name="message"
                       value={formData.message}
                       onChange={handleInputChange}
-                      placeholder="Tell me about your project or just say hello..."
+                      placeholder="Your message here..."
                       className="min-h-[120px] bg-white/50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus:border-blue-500 focus:ring-blue-500/20 transition-all duration-300 resize-none"
                       required
                     />
                   </div>
 
                   {error && (
-                    <div className="text-red-500 flex items-center gap-2 text-sm mb-4">
+                    <div className="text-red-500 flex items-center gap-2 text-sm">
                       <AlertCircle className="h-4 w-4" />
                       {error}
                     </div>
