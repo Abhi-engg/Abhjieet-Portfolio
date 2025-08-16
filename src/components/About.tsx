@@ -6,28 +6,26 @@ const About = () => {
   const skills = [
     {
       name: "Frontend Development",
-      level: 75,
+      level: 80,
       tech: "React, HTML/CSS, TypeScript, Tailwind CSS",
     },
     {
       name: "Backend Development",
-      level: 50,
+      level: 65,
       tech: "Node.js, Django, Express",
     },
     {
       name: "Database Management",
-      level: 60,
+      level: 50,
       tech: "MongoDB, PostgreSQL, MySQL",
     },
   ];
 
   const interests = [
     "Web Development",
-    "UI/UX Design",
     "Open Source",
     "Machine Learning",
-    "Cloud Computing",
-    "Mobile Apps",
+    "App Development",
     "Blockchain",
     "IoT",
   ];

@@ -1,7 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
-import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -12,10 +10,21 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-const storage = getStorage(app);
+// Validate configuration
+if (!firebaseConfig.apiKey) {
+  throw new Error('Missing Firebase API key. Check your environment variables.');
+}
 
-export { auth, db, storage };
+// Initialize Firebase
+let app;
+try {
+  app = initializeApp(firebaseConfig);
+} catch (error) {
+  console.error('Firebase initialization error:', error);
+  throw error;
+}
+
+// Initialize Firestore
+const db = getFirestore(app);
+
+export { db };

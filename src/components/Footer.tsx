@@ -118,16 +118,16 @@ const Footer = () => {
 
 					{/* Spotify */}
 					<div>
-						<h4 className="font-semibold mb-4 text-foreground">Now Playing</h4>
+						<h4 className="font-semibold mb-4 text-foreground">My Playlist</h4>
 						<iframe
-							src="https://open.spotify.com/embed/track/7BgYR9r202eRYKMgCtebII"
+							src="https://open.spotify.com/embed/playlist/37i9dQZF1DX8mBRYewE6or"
 							width="100%"
-							height="152"
+							height="352"
 							frameBorder="0"
 							allowFullScreen
 							allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
 							loading="lazy"
-							className="rounded-lg"
+							className="rounded-lg bg-card/50 backdrop-blur-sm"
 						/>
 					</div>
 				</div>
