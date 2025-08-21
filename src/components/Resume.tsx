@@ -2,6 +2,7 @@ import { Download, FileText, Eye } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import resumePdf from "@/assets/Abhijeet's.pdf";
+import { Star } from "lucide-react";
 
 const Resume = () => {
   const resumePdfPath = resumePdf;
@@ -21,14 +22,14 @@ const Resume = () => {
       <div className="max-w-5xl mx-auto space-y-6 sm:space-y-8 md:space-y-10">
         {/* Header Section */}
         <div className="text-center space-y-4 md:space-y-6">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground tracking-tight">
+          <h2 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 bg-clip-text text-transparent leading-tight">
             My Resume
-          </h1>
-          <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed text-sm sm:text-base md:text-lg">
-            View and download my professional resume to learn more about my
-            experience, skills, and background.
-          </p>
-          <div className="w-16 sm:w-20 h-1 bg-primary/80 mx-auto rounded-full"></div>
+          </h2>
+          <div className="flex items-center justify-center gap-4 mt-8">
+            <div className="h-px w-20 bg-gradient-to-r from-transparent to-primary"></div>
+            <Star className="h-6 w-6 text-primary" />
+            <div className="h-px w-20 bg-gradient-to-l from-transparent to-primary"></div>
+          </div>
         </div>
 
         {/* PDF Preview Section */}

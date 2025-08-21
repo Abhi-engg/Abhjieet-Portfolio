@@ -8,14 +8,25 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Github } from "lucide-react";
-import campusConnect from "@/assets/campusConnectImage.png";
-import farmerMarketplace from "@/assets/farmerMarketplaceImage.png";
-import fitLife from "@/assets/fitlifeImage.png";
-import classTimetable from "@/assets/classTimetableImage.png";
-import listify from "@/assets/listifyImage.png";
+import { ExternalLink, Github, Zap, Star } from "lucide-react";
+import campusConnectImage from "@/assets/campusConnectImage.png";
+import farmerMarketplaceImage from "@/assets/farmerMarketplaceImage.png";
+import fitlifeImage from "@/assets/fitlifeImage.png";
+import classTimetableImage from "@/assets/classTimetableImage.png";
+import listifyImage from "@/assets/listifyImage.png";
 
-// Add type for Project
+// Mock images - replace with your actual imports
+const campusConnect =
+  "https://via.placeholder.com/600x400/6366f1/ffffff?text=CampusConnect";
+const farmerMarketplace =
+  "https://via.placeholder.com/600x400/10b981/ffffff?text=Farmer+Marketplace";
+const fitLife =
+  "https://via.placeholder.com/600x400/f59e0b/ffffff?text=FitLife";
+const classTimetable =
+  "https://via.placeholder.com/600x400/ef4444/ffffff?text=Class+Timetable";
+const listify =
+  "https://via.placeholder.com/600x400/8b5cf6/ffffff?text=ListiFy";
+
 interface Project {
   title: string;
   description: string;
@@ -23,19 +34,20 @@ interface Project {
   technologies: string[];
   liveUrl: string;
   githubUrl: string;
+  featured?: boolean;
 }
 
 const Projects = () => {
-  // Update the useState type
   const [visibleProjects, setVisibleProjects] = useState<number[]>([]);
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
 
   const projects: Project[] = [
     {
       title: "CampusConnect - Student Collaboration Hub",
       description:
-        "CampusConnect helps students learn directly from faculty through shared courses, quizzes, and study materials.It offers real-time chat for easy communication and support.Students can also explore and register for college events and workshops.",
-      image: campusConnect,
-      technologies: ["React", "Django", "postgreSQL", "Tailwind CSS"],
+        "CampusConnect helps students learn directly from faculty through shared courses, quizzes, and study materials. It offers real-time chat for easy communication and support. Students can also explore and register for college events and workshops.",
+      image: campusConnectImage,
+      technologies: ["React", "Django", "PostgreSQL", "Tailwind CSS"],
       liveUrl: "https://github.com/Satya0418/Campus_connect",
       githubUrl: "https://github.com/Satya0418/Campus_connect",
     },
@@ -43,7 +55,7 @@ const Projects = () => {
       title: "ClassTimetable App",
       description:
         "A responsive app for viewing and managing college schedules, with features like color-coded subjects and user-friendly UI.",
-      image: classTimetable,
+      image: classTimetableImage,
       technologies: ["React", "Tailwind CSS"],
       liveUrl: "https://github.com/Abhi-engg/Class-Time-table",
       githubUrl: "https://github.com/Abhi-engg/Class-Time-table",
@@ -52,8 +64,8 @@ const Projects = () => {
       title: "Farmer Marketplace",
       description:
         "A sustainable shopping platform that connects local farmers with consumers. Includes location-based discovery, price tracking, and fresh produce listings.",
-      image: farmerMarketplace,
-      technologies: ["React", "Tailwind CSS", "Django", "postgreSQL"],
+      image: farmerMarketplaceImage,
+      technologies: ["React", "Tailwind CSS", "Django", "PostgreSQL"],
       liveUrl: "https://github.com/Abhi-engg/Farmer-Marketplace",
       githubUrl: "https://github.com/Abhi-engg/Farmer-Marketplace",
     },
@@ -61,7 +73,7 @@ const Projects = () => {
       title: "ListiFy - To-Do-List",
       description:
         "A productivity web app with smart task management, personalized timetables, sticky notes. Built for seamless planning and tracking.",
-      image: listify,
+      image: listifyImage,
       technologies: ["HTML", "CSS", "JavaScript"],
       liveUrl:
         "https://listi-fy-to-do-list-website-aiyfywnx8-abhi-enggs-projects.vercel.app/",
@@ -71,8 +83,8 @@ const Projects = () => {
       title: "FitLife - Fitness Guide",
       description:
         "A fitness companion app for goal tracking, calorie monitoring, and personalized workout plans. Includes interactive forms and health insights.",
-      image: fitLife,
-      technologies: ["Html", "CSS", "JavaScript"],
+      image: fitlifeImage,
+      technologies: ["HTML", "CSS", "JavaScript"],
       liveUrl: "https://github.com/Abhi-engg/FitLife--A-Fitness-Guide",
       githubUrl: "https://github.com/Abhi-engg/FitLife--A-Fitness-Guide",
     },
@@ -83,7 +95,7 @@ const Projects = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const index = parseInt(entry.target.dataset.index);
+            const index = parseInt(entry.target.dataset.index || "0");
             setTimeout(() => {
               setVisibleProjects((prev) => [...new Set([...prev, index])]);
             }, index * 150);
@@ -100,172 +112,195 @@ const Projects = () => {
   }, []);
 
   return (
-    <section id="projects" className="py-20">
-      <div className="container mx-auto px-7">
-        <div className="max-w-6xl mx-auto">
-          {/* Enhanced Header Animation */}
-          <div className="text-center mb-16 p-6 opacity-0 animate-[fadeInUp_0.8s_ease-out_forwards]">
-            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
-              Featured Projects
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto transform transition-all duration-700 hover:scale-105">
-              Here are some of my recent projects that showcase my skills and
-              passion for creating innovative digital solutions.
-            </p>
-            <div className="w-20 h-1 bg-primary mx-auto mt-6 transform scale-x-0 animate-[scaleX_0.8s_ease-out_0.5s_forwards] origin-center"></div>
+    <section id="projects" className="p0">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          {/* Enhanced Header */}
+          <div className="text-center mb-20 relative">
+            {/* <div className="absolute inset-0 flex items-center justify-center opacity-5">
+              <div className="text-9xl font-bold text-primary">PROJECTS</div>
+            </div> */}
+            <div className="relative z-10 space-y-6">
+              {/* <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium">
+                <Zap className="h-4 w-4" />
+                Featured Work
+              </div> */}
+              <h2 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 bg-clip-text text-transparent leading-tight">
+                My Projects
+              </h2>
+              <div className="flex items-center justify-center gap-4 mt-8">
+                <div className="h-px w-20 bg-gradient-to-r from-transparent to-primary"></div>
+                <Star className="h-6 w-6 text-primary" />
+                <div className="h-px w-20 bg-gradient-to-l from-transparent to-primary"></div>
+              </div>
+            </div>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          {/* Projects Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-10">
             {projects.map((project, index) => (
               <div
                 key={index}
-                className={`project-card transform transition-all duration-700 ${
+                className={`project-card group relative transform transition-all duration-1000 ${
                   visibleProjects.includes(index)
                     ? "translate-y-0 opacity-100"
-                    : "translate-y-8 opacity-0"
+                    : "translate-y-12 opacity-0"
                 }`}
                 data-index={index}
+                onMouseEnter={() => setHoveredCard(index)}
+                onMouseLeave={() => setHoveredCard(null)}
               >
-                <Card className="group h-full relative overflow-hidden bg-project-card hover:bg-project-card-hover transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2 cursor-pointer border-0 hover:border hover:border-primary/20">
-                  {/* Image Container with Fixed Aspect Ratio */}
-                  <div className="relative w-full pt-[50.25%] overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent z-10"></div>
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="absolute inset-0 w-full h-full object-contain bg-gray-50 dark:bg-gray-900 transition-all duration-700 group-hover:scale-105 group-hover:rotate-1 group-hover:brightness-110"
-                      loading="lazy"
-                    />
+                {/* Glow Effect */}
+                <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 via-purple-500/20 to-primary/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-all duration-700 blur-sm group-hover:blur-md"></div>
 
-                    {/* Enhanced Overlay - Update z-index */}
-                    <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center gap-4 z-20 backdrop-blur-sm">
-                      <Button
-                        variant="secondary"
-                        size="sm"
-                        asChild
-                        className="transform -translate-x-8 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-500 delay-100 hover:scale-110 shadow-lg"
-                      >
-                        <a
-                          href={project.liveUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2"
+                {/* Featured Badge */}
+                {project.featured && (
+                  <div className="absolute -top-3 -right-3 z-30 bg-gradient-to-r from-amber-400 to-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg transform rotate-12 group-hover:rotate-0 transition-transform duration-500">
+                    Featured
+                  </div>
+                )}
+
+                <Card className="relative h-full bg-background/95 backdrop-blur-sm border border-border/50 rounded-3xl overflow-hidden group-hover:border-primary/30 transition-all duration-700 group-hover:shadow-2xl group-hover:shadow-primary/10 group-hover:-translate-y-3">
+                  {/* Animated Background Pattern */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity duration-700">
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,theme(colors.primary.500)_1px,transparent_1px)] bg-[length:20px_20px] animate-pulse"></div>
+                  </div>
+
+                  {/* Image Section */}
+                  <div className="relative overflow-hidden rounded-t-3xl">
+                    {/* Floating Elements */}
+                    <div className="absolute top-4 left-4 z-20 flex gap-2">
+                      <div className="w-3 h-3 rounded-full bg-red-500 animate-pulse"></div>
+                      <div className="w-3 h-3 rounded-full bg-yellow-500 animate-pulse delay-100"></div>
+                      <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse delay-200"></div>
+                    </div>
+
+                    <div className="relative aspect-video bg-gradient-to-br from-muted/50 to-muted overflow-hidden">
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110 group-hover:rotate-1 filter group-hover:brightness-110 group-hover:saturate-110"
+                        loading="lazy"
+                      />
+
+                      {/* Gradient Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                      {/* Hover Buttons */}
+                      <div className="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-all duration-500 backdrop-blur-sm">
+                        <Button
+                          variant="secondary"
+                          size="sm"
+                          asChild
+                          className="transform -translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700 delay-100 hover:scale-110 shadow-xl bg-background/90 backdrop-blur-sm border border-primary/20 hover:border-primary/50"
                         >
-                          <ExternalLink className="h-4 w-4" />
-                          Live Demo
-                        </a>
-                      </Button>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        asChild
-                        className="transform translate-x-8 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-500 delay-200 hover:scale-110 shadow-lg"
-                      >
-                        <a
-                          href={project.githubUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2"
+                          <a
+                            href={project.liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2"
+                          >
+                            <ExternalLink className="h-4 w-4" />
+                            Live Demo
+                          </a>
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          asChild
+                          className="transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700 delay-200 hover:scale-110 shadow-xl bg-background/90 backdrop-blur-sm border border-primary/20 hover:border-primary/50"
                         >
-                          <Github className="h-4 w-4" />
-                          Code
-                        </a>
-                      </Button>
+                          <a
+                            href={project.githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2"
+                          >
+                            <Github className="h-4 w-4" />
+                            Source Code
+                          </a>
+                        </Button>
+                      </div>
+
+                      {/* Animated Corner Decoration */}
+                      <div className="absolute top-0 right-0 w-20 h-20 transform translate-x-10 -translate-y-10 rotate-45 bg-gradient-to-br from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700 delay-300"></div>
                     </div>
                   </div>
 
-                  <CardHeader className="relative z-10 p-4 sm:p-6">
-                    <CardTitle className="text-lg sm:text-xl group-hover:text-primary transition-colors duration-300">
-                      {project.title}
-                    </CardTitle>
-                    <CardDescription className="text-sm leading-relaxed transition-all duration-300 group-hover:text-foreground/80 mt-2">
-                      {project.description}
-                    </CardDescription>
-                  </CardHeader>
+                  {/* Content Section */}
+                  <div className="p-6 space-y-4 relative z-10">
+                    <CardHeader className="p-0">
+                      <CardTitle className="text-xl font-bold group-hover:text-primary transition-colors duration-300 leading-tight">
+                        {project.title}
+                      </CardTitle>
+                      <CardDescription className="text-muted-foreground group-hover:text-foreground/80 transition-colors duration-300 leading-relaxed text-sm">
+                        {project.description}
+                      </CardDescription>
+                    </CardHeader>
 
-                  <CardContent className="relative z-10 p-4 sm:p-6 pt-0">
-                    <div className="flex flex-wrap gap-2">
-                      {project.technologies.map((tech, techIndex) => (
-                        <Badge
-                          key={tech}
-                          variant="secondary"
-                          className="text-xs bg-tech-badge text-tech-badge-foreground transform transition-all duration-300 hover:scale-110 hover:shadow-md cursor-default opacity-80 group-hover:opacity-100"
-                          style={{
-                            animationDelay: `${techIndex * 0.1}s`,
-                            animation: visibleProjects.includes(index)
-                              ? "slideInUp 0.5s ease-out forwards"
-                              : "none",
-                          }}
-                        >
-                          {tech}
-                        </Badge>
-                      ))}
-                    </div>
-                  </CardContent>
+                    {/* Technologies */}
+                    <CardContent className="p-0">
+                      <div className="flex flex-wrap gap-2">
+                        {project.technologies.map((tech, techIndex) => (
+                          <Badge
+                            key={tech}
+                            variant="secondary"
+                            className={`text-xs font-medium px-3 py-1 rounded-full bg-muted/70 hover:bg-primary/10 hover:text-primary transition-all duration-300 hover:scale-105 cursor-default border border-border/50 hover:border-primary/30 ${
+                              hoveredCard === index ? "animate-bounce" : ""
+                            }`}
+                            style={{
+                              animationDelay: `${techIndex * 100}ms`,
+                              animationDuration: "0.6s",
+                            }}
+                          >
+                            {tech}
+                          </Badge>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </div>
+
+                  {/* Bottom Gradient Line */}
+                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 </Card>
               </div>
             ))}
           </div>
 
-          {/* Enhanced View All Button */}
-          <div className="text-center mt-12">
+          {/* Enhanced CTA Section */}
+          <div className="text-center mt-20 relative">
+            <div className="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
+              <div className="w-96 h-96 border border-primary/20 rounded-full animate-spin-slow"></div>
+            </div>
+
             <a
-              href="https://github.com/Abhi-engg?tab=repositories" // <-- Replace with your GitHub repo link
+              href="https://github.com/Abhi-engg?tab=repositories"
               target="_blank"
               rel="noopener noreferrer"
+              className="inline-block"
             >
               <Button
-                variant="outline"
                 size="lg"
-                className="relative overflow-hidden group border-2 hover:border-primary/50 transition-all duration-500 hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-1"
+                className="relative overflow-hidden group bg-gradient-to-r from-blue-600 to-blue-700 text-white  border-0 px-8 py-6 text-lg font-semibold rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-1"
               >
-                <span className="relative z-10 transition-colors duration-300 group-hover:text-primary">
-                  View All Projects
+                <span className="relative z-10 flex items-center gap-3">
+                  <Github className="h-5 w-5" />
+                  Explore All Projects
+                  <ExternalLink className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
                 </span>
-                <ExternalLink className="ml-2 h-4 w-4 relative z-10 transition-all duration-300 group-hover:translate-x-1 group-hover:text-primary" />
-                <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-primary/20 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                {/* Animated background particles */}
+                <div className="absolute inset-0 opacity-30">
+                  <div className="absolute top-2 left-4 w-1 h-1 bg-white rounded-full animate-ping delay-0"></div>
+                  <div className="absolute top-6 right-8 w-1 h-1 bg-white rounded-full animate-ping delay-700"></div>
+                  <div className="absolute bottom-4 left-12 w-1 h-1 bg-white rounded-full animate-ping delay-1000"></div>
+                </div>
               </Button>
             </a>
           </div>
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes scaleX {
-          from {
-            transform: scaleX(0);
-          }
-          to {
-            transform: scaleX(1);
-          }
-        }
-
-        @keyframes slideInUp {
-          from {
-            opacity: 0;
-            transform: translateY(10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        .project-card {
-          transition-delay: var(--delay, 0ms);
-        }
-      `}</style>
     </section>
   );
 };

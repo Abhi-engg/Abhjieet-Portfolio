@@ -10,36 +10,37 @@ import Resume from "@/components/Resume";
 
 const Index = () => {
   return (
-    <div className="relative min-h-screen overflow-hidden">
+    <div className="relative min-h-screen">
       {/* Background Animation */}
-      <Squares
-        speed={0.5}
-        squareSize={50}
-        direction="diagonal"
-        borderColor="#777"
-        hoverFillColor="#333"
-      />
+      <div className="absolute inset-0 -z-10">
+        <Squares
+          speed={0.5}
+          squareSize={50}
+          direction="diagonal"
+          borderColor="#777"
+          hoverFillColor="#333"
+        />
+      </div>
 
       {/* Main Content */}
       <Navbar />
-        <main>
-          <section id="home">
-            <Hero />
-          </section>
-          <section id="about">
-            <About />
-          </section>
-          <section id="projects">
-            <Projects />
-          </section>
-          <section id="resume">
-            {" "}
-            <Resume />
-          </section>
-          <section id="contact">
-            <Contact />
-          </section>
-        </main>
+      <main className="relative z-10">
+        <section id="home">
+          <Hero />
+        </section>
+        <section id="about">
+          <About />
+        </section>
+        <section id="projects">
+          <Projects />
+        </section>
+        <section id="resume">
+          <Resume />
+        </section>
+        <section id="contact">
+          <Contact />
+        </section>
+      </main>
       <Footer />
     </div>
   );

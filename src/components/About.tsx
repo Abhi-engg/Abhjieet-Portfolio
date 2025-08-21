@@ -1,6 +1,7 @@
 import { Progress } from "@/components/ui/progress";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Star } from "lucide-react";
 
 const About = () => {
   const skills = [
@@ -33,12 +34,16 @@ const About = () => {
   return (
     <section id="about" className="py-20">
       <div className="container mx-auto px-6">
-        <div className="max-w-4xl mx-auto">
+        <div className=" mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-slate-800 to-slate-600 dark:from-slate-200 dark:to-slate-400 bg-clip-text text-transparent">
+            <h2 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 bg-clip-text text-transparent leading-tight">
               About Me
             </h2>
-            <div className="w-20 h-1 bg-gradient-to-r from-slate-800 to-slate-600 dark:from-slate-200 dark:to-slate-400 mx-auto rounded-full"></div>
+            <div className="flex items-center justify-center gap-4 mt-8">
+              <div className="h-px w-20 bg-gradient-to-r from-transparent to-primary"></div>
+              <Star className="h-6 w-6 text-primary" />
+              <div className="h-px w-20 bg-gradient-to-l from-transparent to-primary"></div>
+            </div>
           </div>
 
           <div className="grid md:grid-cols-2 gap-12 items-start mt-10">
@@ -49,9 +54,10 @@ const About = () => {
                   Professional Background
                 </h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  I’m a Full Stack Developer skilled in React, Node.js, and Django. I love building
-                  modern, user-focused web apps and exploring tech like AI, UI/UX, and cloud. Passionate
-                  about solving real-world problems through code.
+                  I’m a Full Stack Developer skilled in React, Node.js, and
+                  Django. I love building modern, user-focused web apps and
+                  exploring tech like AI, UI/UX, and cloud. Passionate about
+                  solving real-world problems through code.
                 </p>
               </div>
 
@@ -60,9 +66,10 @@ const About = () => {
                   Technical Expertise
                 </h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  My expertise spans the full stack—from crafting intuitive interfaces with React to
-                  building scalable backends with Django and Node.js. I value clean code, performance,
-                  and user-centric design.
+                  My expertise spans the full stack—from crafting intuitive
+                  interfaces with React to building scalable backends with
+                  Django and Node.js. I value clean code, performance, and
+                  user-centric design.
                 </p>
               </div>
             </div>
@@ -81,19 +88,27 @@ const About = () => {
                     <CardContent className="p-0">
                       <div className="space-y-2">
                         <div className="flex justify-between items-center">
-                          <span className="text-sm font-semibold">{skill.name}</span>
-                          <span className="text-sm text-muted-foreground">{skill.level}%</span>
+                          <span className="text-sm font-semibold">
+                            {skill.name}
+                          </span>
+                          <span className="text-sm text-muted-foreground">
+                            {skill.level}%
+                          </span>
                         </div>
                         <Progress
                           value={skill.level}
                           className="h-2"
                           style={
                             {
-                              "--progress-background": `hsl(${skill.level * 2}, 70%, 50%)`,
+                              "--progress-background": `hsl(${
+                                skill.level * 2
+                              }, 70%, 50%)`,
                             } as React.CSSProperties
                           }
                         />
-                        <p className="text-xs text-muted-foreground mt-1">{skill.tech}</p>
+                        <p className="text-xs text-muted-foreground mt-1">
+                          {skill.tech}
+                        </p>
                       </div>
                     </CardContent>
                   </Card>

@@ -22,16 +22,19 @@ import {
   Clock,
   Instagram,
   AlertCircle,
+  Star,
 } from "lucide-react";
 import useWeb3Forms from "@web3forms/react";
 import { db } from "@/lib/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { a } from "node_modules/framer-motion/dist/types.d-Bq-Qm38R";
+import { add } from "date-fns";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    message: ""
+    message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -54,7 +57,7 @@ const Contact = () => {
         setFormData({
           name: "",
           email: "",
-          message: ""
+          message: "",
         });
       }, 3000);
     },
@@ -88,7 +91,7 @@ const Contact = () => {
         email: formData.email,
         message: formData.message,
         createdAt: new Date().toISOString(),
-        status: "unread"
+        status: "unread",
       };
 
       // Save to Firestore
@@ -100,7 +103,7 @@ const Contact = () => {
         name: formData.name,
         email: formData.email,
         message: formData.message,
-        reference: docRef.id
+        reference: docRef.id,
       });
 
       setIsSubmitted(true);
@@ -111,13 +114,14 @@ const Contact = () => {
         setFormData({
           name: "",
           email: "",
-          message: ""
+          message: "",
         });
       }, 3000);
-
     } catch (err) {
       console.error("Form submission error:", err);
-      setError(err.message || "Failed to submit the form. Please try again later.");
+      setError(
+        err.message || "Failed to submit the form. Please try again later."
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -131,15 +135,14 @@ const Contact = () => {
         <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="text-center mb-16">
-            <h2 className="text-5xl font-bold mb-4 ">
+            <h2 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 bg-clip-text text-transparent leading-tight ">
               Get In Touch
             </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto text-lg leading-relaxed">
-              I'm always open to discussing new opportunities, interesting
-              projects, or just having a conversation about technology and
-              development.
-            </p>
-            <div className="w-20 h-1 bg-gradient-to-r from-slate-800 to-slate-600 mx-auto mt-6 rounded-full"></div>
+            <div className="flex items-center justify-center gap-4 mt-8">
+              <div className="h-px w-20 bg-gradient-to-r from-transparent to-primary"></div>
+              <Star className="h-6 w-6 text-primary" />
+              <div className="h-px w-20 bg-gradient-to-l from-transparent to-primary"></div>
+            </div>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12 items-start">
@@ -163,6 +166,7 @@ const Contact = () => {
                     label: "Email",
                     value: "abhijeetyadav33xb@gmail.com",
                     color: "text-white-600",
+                    href: "mailto:abhijeetyadav33xb@gmail.com",
                   },
                   {
                     icon: MapPin,
