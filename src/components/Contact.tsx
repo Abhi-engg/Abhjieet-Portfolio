@@ -242,7 +242,7 @@ const Contact = () => {
             </div>
 
             {/* Contact Form */}
-            <Card>
+            <Card className="h-full">
               <CardHeader className="pb-6">
                 <CardTitle className="text-2xl bg-gradient-to-r from-slate-800 to-slate-600 dark:from-slate-200 dark:to-slate-400 bg-clip-text text-transparent">
                   Send me a message
@@ -332,6 +332,22 @@ const Contact = () => {
                 </form>
               </CardContent>
             </Card>
+
+            {/* Spotify (responsive) */}
+            <div className="space-y-4">
+              <h4 className="font-semibold text-foreground">Now Playing</h4>
+              <div className="w-full rounded-2xl overflow-hidden bg-card/50 backdrop-blur-sm hover:bg-card/60 transition-colors duration-300">
+                <div className="relative h-40 sm:h-44 md:h-48 lg:h-52">
+                  <iframe
+                    src="https://open.spotify.com/embed/playlist/0GaOaMKDWY1g1ovYLdfZ9Y?utm_source=generator"
+                    className="absolute top-0 left-0 w-full h-full rounded-xl"
+                    style={{ border: "0" }}
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                    loading="lazy"
+                  ></iframe>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
