@@ -26,7 +26,10 @@ const missingVars = requiredEnvVars.filter(
 );
 
 if (missingVars.length > 0) {
-  console.error('Missing Firebase environment variables:', missingVars);
+  // Only log errors in development
+  if (import.meta.env.DEV) {
+    console.error('Missing Firebase environment variables:', missingVars);
+  }
   throw new Error(
     `Missing Firebase environment variables: ${missingVars.join(', ')}. ` +
     'Please set these variables in your hosting platform environment settings.'
@@ -37,8 +40,12 @@ if (missingVars.length > 0) {
 let app;
 try {
   app = initializeApp(firebaseConfig);
-  console.log('✅ Firebase initialized successfully');
+  // Only log success in development
+  if (import.meta.env.DEV) {
+    console.log('✅ Firebase initialized successfully');
+  }
 } catch (error) {
+  // Always log errors (even in production) for debugging
   console.error('❌ Firebase initialization error:', error);
   throw error;
 }

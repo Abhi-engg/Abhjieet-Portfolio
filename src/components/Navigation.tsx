@@ -1,12 +1,41 @@
 import { useState, useEffect, useRef } from "react";
-import { Button } from "@/components/ui/button";
 import { Menu, X, Moon, Sun } from "lucide-react";
-import { cn } from "@/lib/utils";
+
+// Simple Button component
+const Button = ({ variant = "default", size = "default", className = "", onClick, children, ...props }) => {
+  const baseClasses = "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background";
+  
+  const variants = {
+    default: "bg-blue-600 text-white hover:bg-blue-700",
+    ghost: "hover:bg-gray-100 dark:hover:bg-gray-800",
+  };
+  
+  const sizes = {
+    default: "h-10 py-2 px-4",
+    sm: "h-9 px-3 rounded-md",
+    icon: "h-10 w-10",
+  };
+  
+  return (
+    <button 
+      className={`${baseClasses} ${variants[variant]} ${sizes[size]} ${className}`}
+      onClick={onClick}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+};
+
+// Utility function to combine class names
+const cn = (...classes) => {
+  return classes.filter(Boolean).join(' ');
+};
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
-  const [activeSection, setActiveSection] = useState("");
+  const [activeSection, setActiveSection] = useState("#home");
   const [scrollData, setScrollData] = useState({
     scrollY: 0,
     scrollProgress: 0,
@@ -43,22 +72,20 @@ const Navigation = () => {
       if (!ticking) {
         frameRef.current = requestAnimationFrame(() => {
           const scrollY = window.scrollY;
-          const docHeight =
-            document.documentElement.scrollHeight - window.innerHeight;
-          const rawProgress =
-            docHeight > 0 ? Math.min(scrollY / (docHeight * 0.25), 1) : 0;
-
-          // Apply easing to progress for smoother transitions
+          const docHeight = Math.max(
+            document.body.scrollHeight,
+            document.documentElement.scrollHeight
+          ) - window.innerHeight;
+          
+          const rawProgress = docHeight > 0 ? Math.min(scrollY / (docHeight * 0.25), 1) : 0;
           const easedProgress = easeOutQuart(rawProgress);
 
-          // Calculate velocity for dynamic effects
+          // Calculate velocity
           const velocity = scrollY - lastScrollY.current;
-          velocityRef.current = velocity * 0.1 + velocityRef.current * 0.9; // Smooth velocity
+          velocityRef.current = velocity * 0.1 + velocityRef.current * 0.9;
 
           // Direction detection
           const direction = velocity > 0 ? "down" : "up";
-
-          // Enhanced scroll detection
           const isScrolling = scrollY > 10;
 
           setScrollData({
@@ -79,12 +106,15 @@ const Navigation = () => {
             setScrollData((prev) => ({ ...prev, scrollVelocity: 0 }));
           }, 100);
 
-          // Active section tracking with smooth transitions
-          let current = "";
+          // Active section tracking
+          let current = "#home";
           navItems.forEach(({ href }) => {
-            const section = document.querySelector(href);
-            if (section && scrollY >= section.offsetTop - 120) {
-              current = href;
+            const element = document.querySelector(href);
+            if (element) {
+              const rect = element.getBoundingClientRect();
+              if (rect.top <= 120 && rect.bottom >= 120) {
+                current = href;
+              }
             }
           });
           setActiveSection(current);
@@ -106,125 +136,103 @@ const Navigation = () => {
         clearTimeout(isScrollingTimeout.current);
       }
     };
-  }, []);
+  }, [navItems]);
 
   useEffect(() => {
-    // Check if user has a stored preference in localStorage
-    const savedTheme = localStorage.getItem("theme");
-
-    if (savedTheme) {
-      setDarkMode(savedTheme === "dark");
-      if (savedTheme === "dark") {
+    // Initialize dark mode based on system preference
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    setDarkMode(prefersDark);
+    
+    // Apply dark mode class to document
+    const applyDarkMode = (isDark) => {
+      if (isDark) {
         document.documentElement.classList.add("dark");
       } else {
         document.documentElement.classList.remove("dark");
       }
-    } else {
-      // Otherwise, follow system preference
-      const prefersDark = window.matchMedia(
-        "(prefers-color-scheme: dark)"
-      ).matches;
-      setDarkMode(prefersDark);
-      if (prefersDark) {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
+    };
 
-      // Listen for system theme changes
-      const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-      const handleChange = (e) => {
-        setDarkMode(e.matches);
-        if (e.matches) {
-          document.documentElement.classList.add("dark");
-        } else {
-          document.documentElement.classList.remove("dark");
-        }
-      };
-      mediaQuery.addEventListener("change", handleChange);
+    applyDarkMode(prefersDark);
 
-      return () => {
-        mediaQuery.removeEventListener("change", handleChange);
-      };
-    }
+    // Listen for system theme changes
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const handleChange = (e) => {
+      setDarkMode(e.matches);
+      applyDarkMode(e.matches);
+    };
+    
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
   }, []);
 
   const toggleDarkMode = () => {
     const newMode = !darkMode;
     setDarkMode(newMode);
+    
     if (newMode) {
       document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
     } else {
       document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
     }
   };
 
   const handleLinkClick = (href) => {
-    const section = document.querySelector(href);
-    section?.scrollIntoView({ behavior: "smooth", block: "start" });
     setIsOpen(false);
+    setActiveSection(href);
+    
+    // Smooth scroll to target element
+    const targetElement = document.querySelector(href);
+    if (targetElement) {
+      const offsetTop = targetElement.getBoundingClientRect().top + window.scrollY - 100;
+      window.scrollTo({
+        top: offsetTop,
+        behavior: 'smooth'
+      });
+    } else {
+      // If element doesn't exist, just scroll to top for home
+      if (href === '#home') {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      }
+    }
   };
 
-  // Advanced calculated values with multiple easing functions
-  const { scrollProgress, scrollVelocity, isScrolling, direction } = scrollData;
-
   // Navigation dimensions with smooth scaling
-  const navWidth = 88 - easeInOutCubic(scrollProgress) * 25; // 88% to 63%
-  const navHeight = 18 - easeOutCubic(scrollProgress) * 6; // 72px to 48px
-  const navTop = 0.75 - easeInOutQuart(scrollProgress) * 0.5; // Move up slightly
-  const navScale = 1 - easeInOutCubic(scrollProgress) * 0.08; // Subtle scale
+  const { scrollProgress, scrollVelocity, isScrolling, direction } = scrollData;
+  
+  const navWidth = Math.max(63, 88 - easeInOutCubic(scrollProgress) * 25);
+  const navTop = Math.max(0.25, 0.75 - easeInOutQuart(scrollProgress) * 0.5);
+  const navScale = Math.max(0.92, 1 - easeInOutCubic(scrollProgress) * 0.08);
 
   // Content scaling
-  const logoSize = 11 - easeOutCubic(scrollProgress) * 3; // 44px to 32px
-  const textScale = 1 - easeInOutCubic(scrollProgress) * 0.15;
-  const iconScale = 1 - easeOutCubic(scrollProgress) * 0.2;
-  const spacing = 2.5 - easeInOutCubic(scrollProgress) * 1; // Gap between items
+  const textScale = Math.max(0.85, 1 - easeInOutCubic(scrollProgress) * 0.15);
+  const spacing = Math.max(1.5, 2.5 - easeInOutCubic(scrollProgress) * 1);
 
   // Dynamic effects based on scroll velocity
   const velocityEffect = Math.min(scrollVelocity * 0.02, 0.1);
-  const dynamicBlur = 12 + velocityEffect * 8; // Increase blur during fast scroll
-  const dynamicOpacity = 0.85 + velocityEffect * 0.1;
-
-  // Enhanced shadows and effects
-  const shadowIntensity = easeOutCubic(scrollProgress);
-  const borderOpacity = 0.3 + easeInOutCubic(scrollProgress) * 0.4;
+  const dynamicBlur = Math.min(20, 12 + velocityEffect * 8);
+  const dynamicOpacity = Math.min(1, 0.85 + velocityEffect * 0.1);
 
   return (
     <>
-      {/* Scroll indicator */}
-      {/* <div 
-        className="fixed top-0 left-0 h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 z-[60] transition-all duration-300"
-        style={{ 
-          width: `${scrollProgress * 100}%`,
-          opacity: isScrolling ? 0.6 : 0
-        }}
-      /> */}
-
+      {/* Mobile Navigation */}
       <nav
         className={cn(
-          "fixed top-4 left-1/2 -translate-x-1/2 w-[95%] z-50 md:hidden", // Mobile-specific positioning
-          "rounded-2xl transition-all duration-300",
+          "fixed top-4 left-1/2 -translate-x-1/2 w-[95%] z-50 md:hidden rounded-2xl transition-all duration-300",
           isScrolling
             ? darkMode
-              ? "bg-zinc-900/90 border border-zinc-800/60 shadow-lg"
-              : "bg-white/90 border border-zinc-200/70 shadow-lg"
+              ? "bg-gray-900/90 border border-gray-800/60 shadow-lg backdrop-blur-md"
+              : "bg-white/90 border border-gray-200/70 shadow-lg backdrop-blur-md"
             : "bg-transparent border-transparent"
         )}
-        style={{
-          backdropFilter: `blur(12px)`,
-        }}
       >
         <div className="px-4 py-3">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <a
-              href="#home"
-              onClick={(e) => {
-                e.preventDefault();
-                handleLinkClick("#home");
-              }}
+            <button
+              onClick={() => handleLinkClick("#home")}
               className="relative flex items-center justify-center group transition-all duration-300"
             >
               <div className="relative w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500/10 via-blue-500/5 to-blue-500/10 flex items-center justify-center border border-blue-500/20 shadow-sm hover:shadow-md hover:scale-105 transition-all duration-300">
@@ -232,7 +240,7 @@ const Navigation = () => {
                   AY.
                 </span>
               </div>
-            </a>
+            </button>
 
             {/* Actions */}
             <div className="flex items-center gap-2">
@@ -241,7 +249,7 @@ const Navigation = () => {
                 variant="ghost"
                 size="sm"
                 onClick={toggleDarkMode}
-                className="rounded-xl hover:bg-zinc-100/80 dark:hover:bg-zinc-800/50"
+                className="rounded-xl hover:bg-gray-100/80 dark:hover:bg-gray-800/50"
               >
                 {darkMode ? (
                   <Sun className="h-4 w-4" />
@@ -268,33 +276,27 @@ const Navigation = () => {
 
           {/* Mobile Menu Dropdown */}
           {isOpen && (
-            <div className="mt-3 py-2 px-1">
+            <div className="mt-3 py-2 px-1 animate-in slide-in-from-top duration-200">
               <div className="relative overflow-hidden rounded-xl">
                 {navItems.map((item, index) => (
-                  <a
+                  <button
                     key={item.name}
-                    href={item.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleLinkClick(item.href);
-                    }}
+                    onClick={() => handleLinkClick(item.href)}
                     style={{
                       animationDelay: `${index * 50}ms`,
                     }}
                     className={cn(
-                      "block px-4 py-2.5 text-sm font-medium rounded-lg transition-all duration-200",
-                      "animate-in slide-in-from-right-5",
+                      "w-full text-left block px-4 py-2.5 text-sm font-medium rounded-lg transition-all duration-200 flex items-center justify-between animate-in fade-in slide-in-from-top",
                       activeSection === item.href
-                        ? "bg-blue-500/10 text-blue-600 dark:text-blue-400 backdrop-blur-md"
-                        : "hover:bg-zinc-100/50 dark:hover:bg-zinc-800/50",
-                      "flex items-center justify-between"
+                        ? "bg-blue-500/10 text-blue-600 dark:text-blue-400"
+                        : "hover:bg-gray-100/50 dark:hover:bg-gray-800/50 text-gray-700 dark:text-gray-300"
                     )}
                   >
                     {item.name}
                     {activeSection === item.href && (
                       <div className="h-1.5 w-1.5 rounded-full bg-blue-500" />
                     )}
-                  </a>
+                  </button>
                 ))}
               </div>
             </div>
@@ -302,13 +304,14 @@ const Navigation = () => {
         </div>
       </nav>
 
+      {/* Desktop Navigation */}
       <nav
         className={cn(
           "fixed left-1/2 z-50 rounded-full transition-all duration-700 ease-out hidden md:block",
           isScrolling
             ? darkMode
-              ? "bg-zinc-900/80 border border-zinc-800/60 shadow-2xl"
-              : "bg-white/90 border border-zinc-200/70 shadow-2xl"
+              ? "bg-gray-900/80 border border-gray-800/60 shadow-2xl backdrop-blur-md"
+              : "bg-white/90 border border-gray-200/70 shadow-2xl backdrop-blur-md"
             : "bg-transparent border-transparent"
         )}
         style={{
@@ -320,48 +323,14 @@ const Navigation = () => {
           }px)`,
           backdropFilter: `blur(${dynamicBlur}px)`,
           opacity: dynamicOpacity,
-          boxShadow: isScrolling
-            ? darkMode
-              ? `0 ${8 + shadowIntensity * 12}px ${
-                  40 + shadowIntensity * 20
-                }px rgba(0, 0, 0, ${0.4 + shadowIntensity * 0.2}), 0 ${
-                  2 + shadowIntensity * 4
-                }px ${10 + shadowIntensity * 10}px rgba(0, 0, 0, ${
-                  0.3 + shadowIntensity * 0.2
-                })`
-              : `0 ${8 + shadowIntensity * 12}px ${
-                  40 + shadowIntensity * 20
-                }px rgba(0, 0, 0, ${0.15 + shadowIntensity * 0.1}), 0 ${
-                  2 + shadowIntensity * 4
-                }px ${10 + shadowIntensity * 10}px rgba(0, 0, 0, ${
-                  0.1 + shadowIntensity * 0.1
-                })`
-            : "none",
-          borderColor: isScrolling
-            ? darkMode
-              ? `rgba(113, 113, 122, ${borderOpacity})`
-              : `rgba(228, 228, 231, ${borderOpacity})`
-            : "transparent",
         }}
       >
-        <div
-          className="container mx-auto transition-all duration-700 ease-out"
-          style={{
-            padding: `0 ${1.5 - scrollProgress * 0.5}rem`,
-          }}
-        >
-          <div
-            className="flex items-center justify-between transition-all duration-700 ease-out"
-            style={{ height: `${navHeight * 0.25}rem` }}
-          >
+        <div className="container mx-auto transition-all duration-700 ease-out px-6">
+          <div className="flex items-center justify-between transition-all duration-700 ease-out h-16">
             {/* Enhanced Logo */}
             <div className="flex-shrink-0">
-              <a
-                href="#home"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleLinkClick("#home");
-                }}
+              <button
+                onClick={() => handleLinkClick("#home")}
                 className="relative flex items-center justify-center group transition-all duration-300"
               >
                 <div
@@ -374,7 +343,7 @@ const Navigation = () => {
                     AY.
                   </span>
                 </div>
-              </a>
+              </button>
             </div>
 
             {/* Enhanced Desktop Navigation */}
@@ -384,18 +353,14 @@ const Navigation = () => {
                 style={{ gap: `${spacing * 0.5}rem` }}
               >
                 {navItems.map((item, index) => (
-                  <a
+                  <button
                     key={item.name}
-                    href={item.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleLinkClick(item.href);
-                    }}
+                    onClick={() => handleLinkClick(item.href)}
                     className={cn(
                       "relative font-semibold transition-all duration-500 group px-4 py-2 rounded-lg overflow-hidden",
                       activeSection === item.href
-                        ? "text-zinc-900 dark:text-zinc-100"
-                        : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100"
+                        ? "text-gray-900 dark:text-gray-100"
+                        : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
                     )}
                     style={{
                       fontSize: `${0.875 * textScale}rem`,
@@ -421,14 +386,13 @@ const Navigation = () => {
                     {/* Enhanced underline indicator */}
                     <div
                       className={cn(
-                        "absolute bottom-0 left-1/2 -translate-x-1/2 transition-all duration-500 rounded-full",
-                        "bg-gradient-to-r from-blue-600 to-black",
+                        "absolute bottom-0 left-1/2 -translate-x-1/2 transition-all duration-500 rounded-full bg-gradient-to-r from-blue-600 to-blue-800",
                         activeSection === item.href
                           ? "w-8 h-0.5 opacity-100"
                           : "w-0 h-0.5 opacity-0 group-hover:w-8 group-hover:opacity-100"
                       )}
                     />
-                  </a>
+                  </button>
                 ))}
               </div>
             </div>
@@ -440,58 +404,17 @@ const Navigation = () => {
                 variant="ghost"
                 size="icon"
                 onClick={toggleDarkMode}
-                className="rounded-full hover:bg-zinc-100/80 dark:hover:bg-zinc-800/50 transition-all duration-300 hover:scale-110"
+                className="rounded-full hover:bg-gray-100/80 dark:hover:bg-gray-800/50 transition-all duration-300 hover:scale-110"
               >
                 {darkMode ? (
-                  <Sun className="h-5 w-5 text-zinc-900 dark:text-zinc-100" />
+                  <Sun className="h-5 w-5 text-gray-900 dark:text-gray-100" />
                 ) : (
-                  <Moon className="h-5 w-5 text-zinc-600 dark:text-zinc-400" />
+                  <Moon className="h-5 w-5 text-gray-600 dark:text-gray-400" />
                 )}
                 <span className="sr-only">Toggle theme</span>
               </Button>
-
-              {/* Mobile Menu Button */}
-              <Button
-                variant="ghost"
-                size="icon"
-                className="md:hidden"
-                onClick={() => setIsOpen(!isOpen)}
-              >
-                {isOpen ? (
-                  <X className="h-6 w-6 text-zinc-900 dark:text-zinc-100" />
-                ) : (
-                  <Menu className="h-6 w-6 text-zinc-900 dark:text-zinc-100" />
-                )}
-                <span className="sr-only">Toggle menu</span>
-              </Button>
             </div>
           </div>
-
-          {/* Mobile Navigation */}
-          {isOpen && (
-            <div className="md:hidden animate-fade-in-down">
-              <div className="px-4 pt-3 pb-4 space-y-2 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border border-zinc-200 dark:border-zinc-700 rounded-2xl mt-2 shadow-xl transition-all duration-300">
-                {navItems.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleLinkClick(item.href);
-                    }}
-                    className={cn(
-                      "block px-3 py-2 text-sm font-medium transition-colors duration-200 rounded-md",
-                      activeSection === item.href
-                        ? "text-zinc-900 dark:text-zinc-100 bg-zinc-100/40 dark:bg-zinc-800/60"
-                        : "text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 hover:dark:text-zinc-100 hover:bg-zinc-100/40 dark:hover:bg-zinc-800/60"
-                    )}
-                  >
-                    {item.name}
-                  </a>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
       </nav>
     </>
