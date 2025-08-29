@@ -178,7 +178,7 @@ const Hero = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Github className="h-5 w-5 transition-all duration-300 group-hover:rotate-6 group-hover:scale-110" />
+                  <Github className="h-5 w-5 transition-all duration-300 group-hover:scale-110" />
                   <span className="sr-only">GitHub</span>
                 </a>
               </Button>
@@ -193,7 +193,7 @@ const Hero = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Linkedin className="h-5 w-5 transition-all duration-300 group-hover:rotate-6 group-hover:scale-110" />
+                  <Linkedin className="h-5 w-5 transition-all duration-300  group-hover:scale-110" />
                   <span className="sr-only">LinkedIn</span>
                 </a>
               </Button>
@@ -204,7 +204,7 @@ const Hero = () => {
                 asChild
               >
                 <a href="mailto:abhijeetyadav33xb@gmail.com">
-                  <Mail className="h-5 w-5 transition-all duration-300 group-hover:rotate-6 group-hover:scale-110" />
+                  <Mail className="h-5 w-5 transition-all duration-300 group-hover:scale-110" />
                   <span className="sr-only">Email</span>
                 </a>
               </Button>

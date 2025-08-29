@@ -159,31 +159,28 @@ const Contact = () => {
               </p>
             </div>
 
-            <div className="space-y-6">
+            <div className="space-y-5">
               {[
                 {
                   icon: Mail,
                   label: "Email",
                   value: "abhijeetyadav33xb@gmail.com",
                   href: "mailto:abhijeetyadav33xb@gmail.com",
-                  bgColor: "from-blue-100 to-blue-200 dark:from-blue-900/30 dark:to-blue-800/30",
-                  iconColor: "text-blue-600 dark:text-blue-400"
                 },
                 {
                   icon: MapPin,
                   label: "Location",
                   value: "Mumbai, India",
-                  bgColor: "from-green-100 to-green-200 dark:from-green-900/30 dark:to-green-800/30",
-                  iconColor: "text-green-600 dark:text-green-400"
+
                 },
               ].map((item, index) => (
                 <div
                   key={index}
-                  className="group flex items-center gap-4 p-4 rounded-xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border border-white/20 dark:border-slate-700/20 hover:bg-white/80 dark:hover:bg-slate-800/80 transition-all duration-300 hover:shadow-lg cursor-pointer"
+                  className="group flex items-center gap-4 p-4 rounded-xl hover:bg-white/80 dark:hover:bg-slate-800/80 transition-all duration-300 hover:shadow-lg cursor-pointer"
                   onClick={() => item.href && window.open(item.href, '_self')}
                 >
-                  <div className={`flex items-center justify-center w-12 h-12 bg-gradient-to-br ${item.bgColor} rounded-lg group-hover:scale-110 transition-transform duration-300`}>
-                    <item.icon className={`h-6 w-6 ${item.iconColor}`} />
+                  <div className={`flex items-center justify-center w-12 h-12 rounded-lg group-hover:scale-110 transition-transform duration-300`}>
+                    <item.icon className={`h-6 w-6 $`} />
                   </div>
                   <div>
                     <h4 className="font-semibold text-slate-800 dark:text-slate-200">
